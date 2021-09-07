@@ -2,5 +2,5 @@
 
 Member1:Christina
 Member2: Brock Chenicek
-Member3:
-Member4:
+Member3: Sebastian Stockbridge
+Member4: 
