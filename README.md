@@ -4,3 +4,7 @@ Member1: Christina Kahn
 Member2: Brock Chenicek  
 Member3: Sebastian Stockbridge  
 Member4: Sobhi Hosni  
+
+To start server: 
+cd backend;
+nodemon server
