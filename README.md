@@ -6,5 +6,7 @@ Member3: Sebastian Stockbridge
 Member4: Sobhi Hosni  
 
 To start server: 
-cd backend;
-nodemon server
+cd backend; nodemon server
+
+To start app:
+cd frontend; npm start
