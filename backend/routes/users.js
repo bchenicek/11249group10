@@ -19,28 +19,29 @@ router.route('/login').post((req, res) => {
             bcrypt.compare(password, hashed)
                 .then(result => {
                     if (result) {
-                        res.json(user)
-
-                        const currentUser = user;
-                        //req.session.user = currentUser;
+                        res.json({
+                            "status": "login_successful",
+                            "message": "Login attempt was successful.",
+                            "account_data": user
+                        })
                     } else {
                         res.json({
-                            "error": "incorrect_password",
+                            "status": "incorrect_password",
                             "message": "An error was thrown while comparing the given password to the hashed password."
                         })
                     }
                 })
                 .catch(err => {       
                     res.status(400).json({
-                        "error": "catch_error",
+                        "status": "catch_error",
                         "message": "An error was thrown while comparing the given password to the hashed password."
                     })
                 });
         })
         .catch(err => {       
-            res.status(400).json({
-                "error": "catch_error",
-                "message": "An error was thrown while checking for users with the given username."
+            res.json({
+                "status": "user_does_not_exist",
+                "message": "There is no account associated with the given user."
             })
         });
 });
@@ -56,14 +57,14 @@ router.route('/create').post((req, res) => {
         .then(result => {
             if (result.length > 0) {
                 res.json({
-                    "error": "duplicate_username",
+                    "status": "duplicate_username",
                     "message": "A user already exists with the given username."
                 })
             }
         })
         .catch(err => {
             res.status(400).json({
-                "error": "catch_error",
+                "status": "catch_error",
                 "message": "An error was thrown while checking for duplicate usernames."
             })
         })
@@ -72,14 +73,14 @@ router.route('/create').post((req, res) => {
         .then(result => {
             if (result.length > 0) {
                 res.json({
-                    "error": "duplicate_email",
+                    "status": "duplicate_email",
                     "message": "A user already exists with the given email."
                 })
             }
         })
         .catch(err => {
             res.status(400).json({
-                "error": "catch_error",
+                "status": "catch_error",
                 "message": "An error was thrown while checking for dupliate emails."
             })
         })
@@ -100,14 +101,14 @@ router.route('/create').post((req, res) => {
                 .then(() => res.json('User added!'))
                 .catch(err => {
                     res.status(400).json({
-                        "error": "catch_error",
+                        "status": "catch_error",
                         "message": "An error was thrown while saving the user to the database."
                     })
                 })
         })
         .catch(err => {
             res.status(400).json({
-                "error": "catch_error",
+                "status": "catch_error",
                 "message": "An error was thrown while hashing the password."
             })
         })

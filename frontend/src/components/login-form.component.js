@@ -31,9 +31,8 @@ const LoginForm = props => {
             username: username,
             password: password
         }
-
-        loginUser(user);
-        console.log(user);
+        
+        loginUser(user, history);
     }
     
     return (
@@ -51,7 +50,7 @@ const LoginForm = props => {
                 </div>
                 <div className="form-group">
                     <label>Password: </label>
-                    <input type="text"
+                    <input type="password"
                         required
                         className="form-control"
                         value={password}

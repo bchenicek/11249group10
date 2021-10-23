@@ -3,6 +3,10 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css'
 
+import { connect } from 'react-redux';
+import { createUser } from './../auth/actions/userActions';
+import { useHistory } from 'react-router-dom';
+
 const AccountCreation = props => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -10,6 +14,8 @@ const AccountCreation = props => {
     const [last_name, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [birth_date, setBirthDate] = useState(new Date());
+
+    const history = useHistory();
 
     useEffect(() => {
         document.title = "Create Account"
@@ -51,8 +57,7 @@ const AccountCreation = props => {
             birth_date: birth_date
         }
 
-        axios.post('http://localhost:5000/users/create', user)
-            .then(res => console.log(res.data))
+        createUser(user)
 
         setUsername('');
         setPassword('');
@@ -134,4 +139,4 @@ const AccountCreation = props => {
         )        
 }
 
-export default AccountCreation;
+export default connect(null, {createUser})(AccountCreation);
