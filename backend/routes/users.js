@@ -19,9 +19,15 @@ router.route('/login').post((req, res) => {
             bcrypt.compare(password, hashed)
                 .then(result => {
                     if (result) {
-                        res.json("YES")
+                        res.json(user)
+
+                        const currentUser = user;
+                        //req.session.user = currentUser;
                     } else {
-                        res.json("NO")
+                        res.json({
+                            "error": "incorrect_password",
+                            "message": "An error was thrown while comparing the given password to the hashed password."
+                        })
                     }
                 })
                 .catch(err => {       

@@ -1,60 +1,52 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css'
 
-export default class LoginForm extends Component {
-    constructor(props) {
-        super(props);
+import { connect } from 'react-redux';
+import { loginUser } from './../auth/actions/userActions';
+import { useHistory } from 'react-router-dom';
 
-        this.onChangeUsername = this.onChangeUsername.bind(this);
-        this.onChangePassword = this.onChangePassword.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
+const LoginForm = props => {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
-        this.state = {
-            username: '',
-            password: ''
-        }
-    }
+    const history = useHistory();
 
-    componentDidMount() {
+    useEffect(() => {
         document.title = "Login"
+    })
+
+    const onChangeUsername = e => {
+        setUsername(e.target.value)
     }
 
-    onChangeUsername(e) {
-        this.setState({
-            username: e.target.value
-        });
+    const onChangePassword = e => {
+        setPassword(e.target.value)
     }
 
-    onChangePassword(e) {
-        this.setState({
-            password: e.target.value
-        });
-    }
-
-    onSubmit(e) {
+    const onSubmit = e => {
         e.preventDefault();
 
         const user = {
-            username: this.state.username,
-            password: this.state.password
+            username: username,
+            password: password
         }
 
-        console.log(user)
+        loginUser(user);
+        console.log(user);
     }
     
-    render() {
-        return (
+    return (
         <div>
             <h3>Login to your GreenGator Account</h3>
-            <form onSubmit={this.onSubmit}>
+            <form onSubmit={onSubmit}>
                 <div className="form-group">
                     <label>Username: </label>
                     <input type="text"
                         required
                         className="form-control"
-                        value={this.state.username}
-                        onChange={this.onChangeUsername}
+                        value={username}
+                        onChange={onChangeUsername}
                         />
                 </div>
                 <div className="form-group">
@@ -62,8 +54,8 @@ export default class LoginForm extends Component {
                     <input type="text"
                         required
                         className="form-control"
-                        value={this.state.password}
-                        onChange={this.onChangePassword}
+                        value={password}
+                        onChange={onChangePassword}
                         />
                 </div>
 
@@ -73,5 +65,6 @@ export default class LoginForm extends Component {
             </form>
         </div>
         )
-    }
 }
+
+export default connect(null, {loginUser})(LoginForm);
