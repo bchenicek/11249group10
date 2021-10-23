@@ -19,8 +19,8 @@ const BasicRoute = ({children, authenticated, ...rest}) => {
     )
 }
 
-const mapStateToProps = ({session}) => ({
+const isUserAuthenticated = ({session}) => ({
     authenticated: session.authenticated
 })
 
-export default connect(mapStateToProps)(BasicRoute);
+export default connect(isUserAuthenticated)(BasicRoute);

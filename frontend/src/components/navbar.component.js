@@ -30,8 +30,8 @@ const Navbar = ({ props, authenticated }) => {
     )
 }
 
-const mapStateToProps = ({session}) => ({
+const isUserAuthenticated = ({session}) => ({
     authenticated: session.authenticated
 })
 
-export default connect(mapStateToProps)(Navbar);
+export default connect(isUserAuthenticated)(Navbar);
