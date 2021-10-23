@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
 import './Stylesheet.css'
 
 const HomePage = props => {

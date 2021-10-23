@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
 import './Stylesheet.css'
 
 import { connect } from 'react-redux';
 import { logoutUser } from '../auth/actions/userActions';
 import { useHistory } from 'react-router-dom';
 
-const Dashboard = ({props, user}) => {
+const Dashboard = ({ props, user }) => {
     const history = useHistory();
     
     useEffect(() =>{

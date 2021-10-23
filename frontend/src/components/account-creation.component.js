@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css'
 
 import { connect } from 'react-redux';
 import { createUser } from './../auth/actions/userActions';
-import { useHistory } from 'react-router-dom';
+//import { useHistory } from 'react-router-dom';
 
 const AccountCreation = props => {
     const [username, setUsername] = useState("");
@@ -15,7 +14,7 @@ const AccountCreation = props => {
     const [email, setEmail] = useState("");
     const [birth_date, setBirthDate] = useState(new Date());
 
-    const history = useHistory();
+    //const history = useHistory();
 
     useEffect(() => {
         document.title = "Create Account"

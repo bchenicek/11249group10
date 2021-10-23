@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css'
 
 import { connect } from 'react-redux';
@@ -31,7 +30,7 @@ const LoginForm = props => {
             username: username,
             password: password
         }
-        
+
         loginUser(user, history);
     }
     

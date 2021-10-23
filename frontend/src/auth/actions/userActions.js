@@ -12,8 +12,6 @@ export const loginUser = (user, history) => {
             const {data} = res;
 
             if (data.status === "login_successful") {
-                const {message} = data;
-
                 const userData = data.account_data;
                 const token = userData._id;
 
