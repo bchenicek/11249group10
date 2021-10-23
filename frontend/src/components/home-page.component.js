@@ -8,10 +8,17 @@ const HomePage = props => {
 
     return (
         <div>
-            <h1 className="primary">Welcome</h1>
+            <h1 className="primary">Welcome</h1>  
             <h2 className="secondary">
-                GreenGator was created to help guide people towards becoming more environmentally conscious in every aspect of their lives. By tracking various elements of users' daily lives, GreenGator can measure users' carbon footprint to allow them to visualize the environmental impact of their daily routine, and show them how to improve.
+            Guiding you towards a more eco-friendly lifestyle
             </h2>
+            <hr className="hrTag" size="5"></hr>
+            <h3 className="description">
+            By answering some questions about your daily routine, GreenGator can help you understand how to become more environmentally conscious in many aspects of your life  
+            </h3> 
+            <a href="/create-account">
+            <button className="startButton"> Get Started</button>
+            </a>
         </div>
     )
 }
