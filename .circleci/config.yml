@@ -1,6 +1,7 @@
 version: 2.1
 jobs:
   build:
+    working-directory: 
     docker:
       - image: cimg/node:14.10.1 # the primary container, where your job's commands are run
         auth:
@@ -20,4 +21,8 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "frontend/package.json"}}
 
-      - run: npm test
+      - run:
+          command: |
+            echo Running test
+            cd backend
+            npm run test
