@@ -35,6 +35,7 @@ describe('Saving record', function() {
     });
 
     it('Password length less than minLength', function() {
+        
         var user = new User({
             username: 'Username123',
             password: '12345ps', 
