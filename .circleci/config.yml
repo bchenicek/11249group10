@@ -8,16 +8,17 @@ jobs:
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
       - checkout # check out the code in the project directory
-      #- restore_cache:
-      #    keys:
-      #      - v1-dependencies-{{ checksum "frontend/package.json"}}
-      #      - v1-dependencies-
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "frontend/package.json"}}
+            - v1-dependencies-
 
       - run: npm install
+      - run: cd backend && npm install
 
-      #- save_cache:
-      #    paths:
-      #      - node_modules
-       #   key: v1-dependencies-{{ checksum "frontend/package.json"}}
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "frontend/package.json"}}
 
       - run: cd backend && npm run test
