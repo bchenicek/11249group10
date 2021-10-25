@@ -13,12 +13,15 @@ const HomePage = props => {
             Guiding you towards a more eco-friendly lifestyle
             </h2>
             <hr className="hrTag" size="5"></hr>
+            <div className="welcomeBox">
             <h3 className="description">
-            By answering some questions about your daily routine, GreenGator can help you understand how to become more environmentally conscious in many aspects of your life  
+            By answering some questions about your daily routine, GreenGator can help you understand how to become more environmentally conscious in many aspects of your life
             </h3> 
             <a href="/create-account">
             <button className="startButton"> Get Started</button>
             </a>
+            </div>
+            
         </div>
     )
 }
