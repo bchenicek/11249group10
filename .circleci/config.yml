@@ -6,7 +6,7 @@ jobs:
         auth:
           username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
-    working_directory: ~/11249group10/backend
+    working_directory: ~/11249group10
     steps:
       - checkout:
           path: ~/11249group10
@@ -22,4 +22,4 @@ jobs:
       #      - node_modules
       #    key: v1-dependencies-{{ checksum "frontend/package.json"}}
 
-      - run: npm run test
+      - run: npm --prefix ./backend run test
