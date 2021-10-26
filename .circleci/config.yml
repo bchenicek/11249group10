@@ -23,6 +23,6 @@ jobs:
       #    paths:
       #      - node_modules
       #    key: v1-dependencies-{{ checksum "frontend/package.json"}}
-
+      - run: npm --prefix ./backend install bycrypt
       - run: npm --prefix ./backend start
       - run: npm --prefix ./frontend start
