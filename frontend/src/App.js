@@ -7,6 +7,7 @@ import LoginForm from './components/login-form.component';
 import AccountCreation from './components/account-creation.component';
 import HomePage from './components/home-page.component';
 import Dashboard from './components/dashboard.component';
+import FootPrint from './components/footprint-calc.component';
 
 import AuthRoute from './components/AuthRoute';
 import BasicRoute from './components/BasicRoute';
@@ -29,6 +30,9 @@ function App() {
         </BasicRoute>
         <AuthRoute path="/dashboard">
           <Dashboard />
+        </AuthRoute>
+        <AuthRoute path="/footprint-calculator">
+          <FootPrint />
         </AuthRoute>
       </div>
     </Router>
