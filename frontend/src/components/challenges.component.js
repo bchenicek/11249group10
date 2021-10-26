@@ -6,7 +6,7 @@ const Challenges = ({ props, user }) => {
   
     
     useEffect(() =>{
-        document.title = "challenges";
+        document.title = "Challenge Page";
     })
 
 
