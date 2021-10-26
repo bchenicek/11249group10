@@ -14,8 +14,9 @@ jobs:
       #      - v1-dependencies-{{ checksum "frontend/package.json"}}
       #      - v1-dependencies-
 
-      - run: npm install --save
-      - run: npm --prefix ./backend install --save
+      - run: npm install
+      - run: npm --prefix ./backend install
+      - run: npm --prefix ./frontend install
      # - run: ./node_modules/mocha/bin/mocha backend/test/
 
       #- save_cache:
