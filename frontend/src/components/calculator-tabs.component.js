@@ -107,6 +107,7 @@ const HomeInformation = (props) => {
                 <div className="form-group">
                     <label>Electricity Bill (dollars):</label>
                     <input type="number"
+                        required
                         className="form-control"
                         value={props.electricBill}
                         onChange={props.onChangeElectricBill}
@@ -115,6 +116,7 @@ const HomeInformation = (props) => {
                 <div className="form-group">
                     <label>Water Bill (dollars):</label>
                     <input type="number"
+                        required
                         className="form-control"
                         value={props.waterBill}
                         onChange={props.onChangeWaterBill}
@@ -151,6 +153,7 @@ const FoodInformation = (props) => {
                 <div className="form-group">
                     <label>Meat, Fish, and Eggs:</label>
                     <input type="number"
+                        required
                         className="form-control"
                         value={props.animalProtein}
                         onChange={props.onChangeAnimalProtein}
@@ -159,6 +162,7 @@ const FoodInformation = (props) => {
                 <div className="form-group">
                     <label>Grains and Baked Goods:</label>
                     <input type="number"
+                        required
                         className="form-control"
                         value={props.grains}
                         onChange={props.onChangeGrains}
@@ -167,6 +171,7 @@ const FoodInformation = (props) => {
                 <div className="form-group">
                     <label>Dairy:</label>
                     <input type="number"
+                        required
                         className="form-control"
                         value={props.dairy}
                         onChange={props.onChangeDairy}
@@ -175,6 +180,7 @@ const FoodInformation = (props) => {
                 <div className="form-group">
                     <label>Fruits and Vegetable:</label>
                     <input type="number"
+                        required
                         className="form-control"
                         value={props.fruitVeg}
                         onChange={props.onChangeFruitVeg}
@@ -183,6 +189,7 @@ const FoodInformation = (props) => {
                 <div className="form-group">
                     <label>Additional Snacks:</label>
                     <input type="number"
+                        required
                         className="form-control"
                         value={props.snacks}
                         onChange={props.onChangeSnacks}
@@ -202,6 +209,7 @@ const ShoppingInformation = (props) => {
                 <div className="form-group">
                     <label>Goods:</label>
                     <input type="number"
+                        required
                         className="form-control"
                         value={props.shoppingGoods}
                         onChange={props.onChangeShoppingGoods}
@@ -210,6 +218,7 @@ const ShoppingInformation = (props) => {
                 <div className="form-group">
                     <label>Services:</label>
                     <input type="number"
+                        required
                         className="form-control"
                         value={props.shoppingServices}
                         onChange={props.onChangeShoppingServices}
