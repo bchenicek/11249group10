@@ -2,51 +2,56 @@ const router = require('express').Router();
 
 let Footprint = require('../models/footprint.model');
 
-router.route('/footprint').post((req, res) => {
+router.route('/create').post((req, res) => {
+    const user_id = req.body.user_id;
     const city = req.body.city;
     const state = req.body.state;
     const household_size = req.body.household_size;
     const household_income = req.body.household_income;
     const vehicle_miles = req.body.vehicle_miles;
     const vehicle_mpg = req.body.vehicle_mpg;
-    const pt_miles = req.body.pt_miles;
+    const public_transit_miles = req.body.public_transit_miles;
     const air_miles = req.body.air_miles;
-    const ls_area = req.body.ls_area;
-    const el_bill = req.body.el_bill;
+    const living_space_area = req.body.living_space_area;
+    const electric_bill = req.body.electric_bill;
     const water_bill = req.body.water_bill;
-    const nat_gas = req.body.nat_gas;
-    const fuels = req.body.fuels;
-    const protien = req.body.protien;
-    const grains = req.body.grains;
-    const dairy = req.body.dairy;
-    const fruit_veg = req.body.fruit_veg;
-    const snacks = req.body.snacks;
-    const sh_goods = req.body.sh_goods;
-    const sh_services = req.body.sh_services;
+    const natural_gas = req.body.natural_gas;
+    const other_fuels = req.body.other_fuels;
+    const animal_protien_cal = req.body.animal_protien_cal;
+    const grains_cal = req.body.grains_cal;
+    const dairy_cal = req.body.dairy_cal;
+    const fruit_veg_cal = req.body.fruit_veg_cal;
+    const snacks_cal = req.body.snacks_cal;
+    const shopping_goods = req.body.shopping_goods;
+    const shopping_services = req.body.shopping_services;
 
     const newFootprint = new Footprint({
+        user_id,
         city,
         state,
         household_size,
         household_income,
         vehicle_miles,
         vehicle_mpg,
-        pt_miles,
+        public_transit_miles,
         air_miles,
-        ls_area,
-        el_bill,
+        living_space_area,
+        electric_bill,
         water_bill,
-        nat_gas,
-        fuels,
-        protien,
-        grains,
-        dairy,
-        fruit_veg,
-        snacks,
-        sh_goods,
-        sh_services 
+        natural_gas,
+        other_fuels,
+        animal_protien_cal,
+        grains_cal,
+        dairy_cal,
+        fruit_veg_cal,
+        snacks_cal,
+        shopping_goods,
+        shopping_services 
     });
-    newFootprint.save();
+
+    newFootprint.save()
+        .then(() => res.json('Footprint added!'))
+        .catch(err => res.status(400).json('Error: ' + err));
 });
 
 module.exports = router;
