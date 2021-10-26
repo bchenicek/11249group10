@@ -14,9 +14,34 @@ export default class Navbar extends Component {
                     <li className="navbar-item">
                     <Link to="/create-account" className="nav-link" style={{color:"black"}}>Create Account</Link> 
                     </li>
+<<<<<<< Updated upstream
                 </ul>
                 </div>
             </nav>
         )
     }
 }
+=======
+                : null } 
+                { authenticated ? 
+                    <li className="navbar-item">
+                    <Link to="/dashboard" className="nav-link" style={{color:"black"}}>User Dashboard</Link> 
+                    </li>
+                : null }  
+                { authenticated ? 
+                    <li className="navbar-item">
+                    <Link to="/footprint" className="nav-link" style={{color:"black"}}>Carbon Footprint Calculator</Link> 
+                    </li>
+                : null }  
+            </ul>
+            </div>
+        </nav>
+    )
+}
+
+const isUserAuthenticated = ({session}) => ({
+    authenticated: session.authenticated
+})
+
+export default connect(isUserAuthenticated)(Navbar);
+>>>>>>> Stashed changes
