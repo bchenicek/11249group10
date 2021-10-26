@@ -44,7 +44,7 @@ const Challenges = ({ props, user }) => {
            </label></td>
       </tr>
       <tr>
-        <td>Recyle at least 5 things today</td>
+        <td>Recycle at least 5 things today</td>
         <td>Tuesday October 20, 2021</td>
         <td><label class="container">
   <input type="checkbox" value="checked"></input>
