@@ -3,10 +3,11 @@ jobs:
   build:
     docker:
       - image: cimg/node:12.19.0 # the primary container, where your job's commands are run
+      - image: cimg/mongo:latest
         auth:
           username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
-    working_directory: ~/11249group10/backend
+    working_directory: ~/11249group10
     steps:
       - checkout
       #- restore_cache:
@@ -15,12 +16,12 @@ jobs:
       #      - v1-dependencies-
 
       - run: npm install
-     # - run: npm --prefix ./backend install
-      #- run: npm --prefix ./frontend install
+      - run: npm --prefix ./backend install
+      - run: npm --prefix ./frontend install
      # - run: ./node_modules/mocha/bin/mocha backend/test/
 
       #- save_cache:
       #    paths:
       #      - node_modules
       #    key: v1-dependencies-{{ checksum "frontend/package.json"}}
-      - run: npm test
+      - run: npm run build
