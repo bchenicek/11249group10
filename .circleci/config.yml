@@ -6,6 +6,7 @@ jobs:
         auth:
           username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+    working-directory: ~/repo
     steps:
       #- checkout # check out the code in the project directory
       #- restore_cache:
@@ -14,7 +15,6 @@ jobs:
       #      - v1-dependencies-
 
       - run: npm install
-      - run: cd backend && npm install
 
       #- save_cache:
       #    paths:
