@@ -8,6 +8,7 @@ import AccountCreation from './components/account-creation.component';
 import HomePage from './components/home-page.component';
 import Dashboard from './components/dashboard.component';
 import FootPrint from './components/footprint-calc.component';
+import Challenges from './components/challenges.component';
 
 import AuthRoute from './components/AuthRoute';
 import BasicRoute from './components/BasicRoute';
@@ -33,6 +34,9 @@ function App() {
         </AuthRoute>
         <AuthRoute path="/footprint-calculator">
           <FootPrint />
+        </AuthRoute>
+        <AuthRoute path="/challenges">
+          <Challenges />
         </AuthRoute>
       </div>
     </Router>
