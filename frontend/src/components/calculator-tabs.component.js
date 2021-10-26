@@ -205,7 +205,7 @@ const ShoppingInformation = (props) => {
         <div>
             <h3>Shopping Information</h3>
             <form>
-                <h5>Average Money Spent</h5>
+                <h5>Average Money Spent (dollars)</h5>
                 <div className="form-group">
                     <label>Goods:</label>
                     <input type="number"
