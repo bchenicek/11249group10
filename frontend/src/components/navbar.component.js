@@ -29,6 +29,11 @@ const Navbar = ({ props, authenticated }) => {
                     <Link to="/challenges" className="nav-link" style={{color:"black"}}>Challenges</Link> 
                     </li>
                 : null }  
+                { authenticated ? 
+                 <li className="navbar-item">
+                    <Link to="/footprint-calculator" className="nav-link" style={{color:"black"}}>Carbon Footprint Calculator</Link> 
+                    </li>
+                : null } 
             </ul>
             </div>
         </nav>
