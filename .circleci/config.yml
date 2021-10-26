@@ -15,7 +15,7 @@ jobs:
       #      - v1-dependencies-
 
       - run: npm install --save
-      - run: npm --prefix ./backend npm install --save
+      - run: npm --prefix ./backend install --save
      # - run: ./node_modules/mocha/bin/mocha backend/test/
 
       #- save_cache:
