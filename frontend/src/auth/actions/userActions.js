@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { sessionService } from 'redux-react-session';
 
+
 export const loginUser = (user, history) => {
     axios.post('http://localhost:5000/users/login', user, {
         headers: {
@@ -45,8 +46,4 @@ export const logoutUser = (history) => {
     sessionService.deleteUser();
 
     history.push('/');
-}
-
-export const userFootprint = (footprint, history) => {
-    axios.post('http://localhost:5000/users/footprint', footprint)
 }

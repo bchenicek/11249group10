@@ -12,7 +12,7 @@ const FootPrintCalc = ({ props, user }) => {
     var nextBtns = document.querySelectorAll(".next-btn");
     var formSteps = document.querySelectorAll(".step");
 
-    let formStepsNum = 1;
+    let formStepsNum = 0;
 
     function updateFormSteps() {
         formSteps.forEach((formStep) => {
