@@ -1,4 +1,4 @@
-/*
+
 const mocha = require("mocha");
 const assert = require("assert");
 const User = require("../models/user.model");
@@ -53,5 +53,3 @@ describe('Saving record', function() {
     
     
 });
-
-*/

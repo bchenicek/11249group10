@@ -1,4 +1,4 @@
-/*
+
 const mongoose = require("mongoose");
 const express = require('express');
 const cors = require('cors');
@@ -25,5 +25,3 @@ before(function(done) {
        console.log("Connection error", error); 
     });
 });
-
-*/
