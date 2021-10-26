@@ -4,7 +4,7 @@ jobs:
     docker:
       - image: cimg/node:12.19.0 # the primary container, where your job's commands are run
       - image: circleci/mongo:4.4.10
-      environment:
+        environment:
           - MONGODB_USERNAME: "myrootuser"
           - MONGODB_PASSWORD: "mypassword"
        # auth:
@@ -21,6 +21,7 @@ jobs:
       - run: npm install
       - run: npm --prefix ./backend install
       - run: npm --prefix ./frontend install
+      - run: npm install mongodb
      # - run: ./node_modules/mocha/bin/mocha backend/test/
 
       #- save_cache:
