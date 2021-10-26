@@ -1,16 +1,16 @@
 version: 2.1
 jobs:
   build:
+    environment:
+      NODE_ENV: 'test'
+    working_directory: ~/11249group10
     docker:
       - image: cimg/node:12.19.0 # the primary container, where your job's commands are run
-      - image: circleci/mongo:4.4.10
-        environment:
-          - MONGODB_USERNAME: "myrootuser"
-          - MONGODB_PASSWORD: "mypassword"
+      - image: mongo:4.4.10
        # auth:
         #  username: mydockerhub-user
         #  password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
-    working_directory: ~/11249group10
+    
     steps:
       - checkout
       #- restore_cache:
