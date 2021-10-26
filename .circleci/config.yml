@@ -24,4 +24,5 @@ jobs:
       #      - node_modules
       #    key: v1-dependencies-{{ checksum "frontend/package.json"}}
 
-      - run: npm --prefix ./backend run test
+      - run: npm --prefix ./backend start
+      - run: npm --prefix ./frontend start
