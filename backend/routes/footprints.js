@@ -17,7 +17,7 @@ router.route('/create').post((req, res) => {
     const water_bill = req.body.water_bill;
     const natural_gas = req.body.natural_gas;
     const other_fuels = req.body.other_fuels;
-    const animal_protien_cal = req.body.animal_protien_cal;
+    const animal_protein_cal = req.body.animal_protein_cal;
     const grains_cal = req.body.grains_cal;
     const dairy_cal = req.body.dairy_cal;
     const fruit_veg_cal = req.body.fruit_veg_cal;
@@ -40,7 +40,7 @@ router.route('/create').post((req, res) => {
         water_bill,
         natural_gas,
         other_fuels,
-        animal_protien_cal,
+        animal_protein_cal,
         grains_cal,
         dairy_cal,
         fruit_veg_cal,
@@ -51,7 +51,7 @@ router.route('/create').post((req, res) => {
 
     newFootprint.save()
         .then(() => res.json('Footprint added!'))
-        .catch(err => res.status(400).json('Error: ' + err));
+        .catch(err => res.json('Error: ' + err));
 });
 
 module.exports = router;

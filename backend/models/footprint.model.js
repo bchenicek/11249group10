@@ -58,7 +58,7 @@ const footprintSchema = new Schema({
     other_fuels: {
         type: Number
     },
-    animal_protien_cal: {
+    animal_protein_cal: {
         type: Number,
         required: true
     },

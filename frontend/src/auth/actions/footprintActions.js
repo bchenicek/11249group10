@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { sessionService } from 'redux-react-session';
 
-export const userFootprint = (footprint, history) => {
-    axios.post('http://localhost:5000/users/footprint', footprint)
+export const createFootprint = (footprint) => {
+    axios.post('http://localhost:5000/footprints/create', footprint)
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err));
 }
