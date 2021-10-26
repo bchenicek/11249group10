@@ -3,10 +3,13 @@ jobs:
   build:
     docker:
       - image: cimg/node:12.19.0 # the primary container, where your job's commands are run
-      - image: circleci/mongo:4.2.0
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+      - image: circleci/mongo:4.4.10
+      environment:
+          - MONGODB_USERNAME: "myrootuser"
+          - MONGODB_PASSWORD: "mypassword"
+       # auth:
+        #  username: mydockerhub-user
+        #  password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     working_directory: ~/11249group10
     steps:
       - checkout
@@ -24,4 +27,4 @@ jobs:
       #    paths:
       #      - node_modules
       #    key: v1-dependencies-{{ checksum "frontend/package.json"}}
-      - run: npm run build
+      - run: npm --prefix ./frontend run build
