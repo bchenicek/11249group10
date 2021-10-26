@@ -1,3 +1,4 @@
+/*
 const mongoose = require("mongoose");
 const express = require('express');
 const cors = require('cors');
@@ -13,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 const uri = process.env.ATLAS_URI;
 
-{/*Runs before the tests run*/}
+
 before(function(done) {
     mongoose.connect(uri, { useNewUrlParser: true });
     mongoose.connection.once("open", function() {
@@ -24,3 +25,5 @@ before(function(done) {
        console.log("Connection error", error); 
     });
 });
+
+*/

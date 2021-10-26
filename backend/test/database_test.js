@@ -1,3 +1,4 @@
+/*
 const mocha = require("mocha");
 const assert = require("assert");
 const User = require("../models/user.model");
@@ -14,8 +15,8 @@ describe('Saving record', function() {
             birth_date: new Date("December 17, 1995") 
         });
         user.save().then(function() {
-            assert(user.isNew === false); {/*false when value is saved in the database after creation*/}
-            done(); {/*telling mocha that our test is done, can move on to next test*/}
+            assert(user.isNew === false); 
+            done(); 
         });
     });
 
@@ -29,8 +30,8 @@ describe('Saving record', function() {
             birth_date: new Date("December 17, 1995") 
         });
         user.save().then(function() {
-            assert(user.isNew === true); {/*true means that the user was not able to be saved to database*/}
-            done(); {/*telling mocha that our test is done, can move on to next test*/}
+            assert(user.isNew === true); 
+            done(); 
         });
     });
 
@@ -45,10 +46,12 @@ describe('Saving record', function() {
             birth_date: new Date("December 17, 1995") 
         });
         user.save().then(function() {
-            assert(user.isNew === true); {/*false when value is saved in the database after creation*/}
-            done(); {/*telling mocha that our test is done, can move on to next test*/}
+            assert(user.isNew === true); 
+            done(); 
         });
     });
     
     
 });
+
+*/
