@@ -119,7 +119,7 @@ const AccountCreation = props => {
                         />
                 </div>
                 <div className="form-group">
-                    <label>Date:&nbsp;</label>
+                    <label>Birth Date:&nbsp;</label>
                     <label className="text-danger">*</label>
                     <div>
                         <DatePicker

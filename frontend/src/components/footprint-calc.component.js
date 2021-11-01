@@ -1,207 +1,222 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Stylesheet.css'
 
 import { connect } from 'react-redux';
-import { logoutUser } from '../auth/actions/userActions';
-import { useHistory } from 'react-router-dom';
-import { userFootprint } from './../auth/actions/userActions';
+import { createFootprint } from './../auth/actions/footprintActions';
+
+import { HouseholdInformation, TravelInformation, HomeInformation, FoodInformation, ShoppingInformation } from './calculator-tabs.component'
 
 const FootPrintCalc = ({ props, user }) => {
+    const [activeTab, setActiveTab] = useState(0);
+    
+    const userID = user._id;
 
-    var prevBtns = document.querySelectorAll(".previous-btn");
-    var nextBtns = document.querySelectorAll(".next-btn");
-    var formSteps = document.querySelectorAll(".step");
+    const [city, setCity] = useState("");
+    const [_state, set_State] = useState("");
+    const [householdSize, setHouseholdSize] = useState(0);
+    const [householdIncome, setHouseholdIncome] = useState(0);
 
-    let formStepsNum = 0;
+    const [vehicleMiles, setVehicleMiles] = useState(0);
+    const [vehicleMPG, setVehicleMPG] = useState(0);
+    const [publicTransitMiles, setPublicTransitMiles] = useState(0);
+    const [airMiles, setAirMiles] = useState(0);
 
-    function updateFormSteps() {
-        formSteps.forEach((formStep) => {
-            formStep.classList.contains("step-active") &&
-            formStep.classList.remove("step-active");
-            });
-        formSteps[formStepsNum].classList.add("step-active");
-    }
+    const [livingArea, setLivingArea] = useState(0);
+    const [electricBill, setElectricBill] = useState(0);
+    const [waterBill, setWaterBill] = useState(0);
+    const [naturalGas, setNaturalGas] = useState(0);
+    const [otherFuels, setOtherFuels] = useState(0);
 
-    const history = useHistory();
+    const [animalProtein, setAnimalProtein] = useState(0);
+    const [grains, setGrains] = useState(0);
+    const [dairy, setDairy] = useState(0);
+    const [fruitVeg, setFruitVeg] = useState(0);
+    const [snacks, setSnacks] = useState(0);
+
+    const [shoppingGoods, setShoppingGoods] = useState(0);
+    const [shoppingServices, setShoppingServices] = useState(0);
 
     useEffect(() =>{
         document.title = "Carbon Footprint Calculator";
     })
 
-    const onClickNext = e => {
-        e.preventDefault();
-        formStepsNum++;
-        updateFormSteps();
+    const onChangeCity = e => {
+        setCity(e.target.value)
     }
 
-    const onClickPrev = e => {
+    const onChangeState = e => {
+        set_State(e.target.value)
+    }
+
+    const onChangeHouseholdSize = e => {
+        setHouseholdSize(e.target.value)
+    }
+
+    const onChangeHouseholdIncome = e => {
+        setHouseholdIncome(e.target.value)
+    }
+
+    const onChangeVehicleMiles = e => {
+        setVehicleMiles(e.target.value)
+    }
+
+    const onChangeVehicleMPG = e => {
+        setVehicleMPG(e.target.value)
+    }
+
+    const onChangePublicTransitMiles = e => {
+        setPublicTransitMiles(e.target.value)
+    }
+
+    const onChangeAirMiles = e => {
+        setAirMiles(e.target.value)
+    }
+
+    const onChangeLivingArea = e => {
+        setLivingArea(e.target.value)
+    }
+
+    const onChangeElectricBill = e => {
+        setElectricBill(e.target.value)
+    }
+
+    const onChangeWaterBill = e => {
+        setWaterBill(e.target.value)
+    }
+
+    const onChangeNaturalGas = e => {
+        setNaturalGas(e.target.value)
+    }
+
+    const onChangeOtherFuels = e => {
+        setOtherFuels(e.target.value)
+    }
+
+    const onChangeAnimalProtein = e => {
+        setAnimalProtein(e.target.value)
+    }
+
+    const onChangeGrains = e => {
+        setGrains(e.target.value)
+    }
+
+    const onChangeDairy = e => {
+        setDairy(e.target.value)
+    }
+
+    const onChangeFruitVeg = e => {
+        setFruitVeg(e.target.value)
+    }
+
+    const onChangeSnacks = e => {
+        setSnacks(e.target.value)
+    }
+
+    const onChangeShoppingGoods = e => {
+        setShoppingGoods(e.target.value)
+    }
+
+    const onChangeShoppingServices = e => {
+        setShoppingServices(e.target.value)
+    }
+
+    const tabs = [
+    <HouseholdInformation 
+        city={city} onChangeCity={onChangeCity}
+        _state={_state} onChangeState={onChangeState}
+        householdSize={householdSize} onChangeHouseholdSize={onChangeHouseholdSize}
+        householdIncome={householdIncome} onChangeHouseholdIncome={onChangeHouseholdIncome}
+    />, 
+    <TravelInformation 
+        vehicleMiles={vehicleMiles} onChangeVehicleMiles={onChangeVehicleMiles}
+        vehicleMPG={vehicleMPG} onChangeVehicleMPG={onChangeVehicleMPG}
+        publicTransitMiles={publicTransitMiles} onChangePublicTransitMiles={onChangePublicTransitMiles}
+        airMiles={airMiles} onChangeAirMiles={onChangeAirMiles}
+    />, 
+    <HomeInformation 
+        livingArea={livingArea} onChangeLivingArea={onChangeLivingArea}
+        electricBill={electricBill} onChangeElectricBill={onChangeElectricBill}
+        waterBill={waterBill} onChangeWaterBill={onChangeWaterBill}
+        naturalGas={naturalGas} onChangeNaturalGas={onChangeNaturalGas}
+        otherFuels={otherFuels} onChangeOtherFuels={onChangeOtherFuels}
+    />, 
+    <FoodInformation 
+        animalProtein={animalProtein} onChangeAnimalProtein={onChangeAnimalProtein}
+        grains={grains} onChangeGrains={onChangeGrains}
+        dairy={dairy} onChangeDairy={onChangeDairy}
+        fruitVeg={fruitVeg} onChangeFruitVeg={onChangeFruitVeg}
+        snacks={snacks} onChangeSnacks={onChangeSnacks}
+    />, 
+    <ShoppingInformation 
+        shoppingGoods={shoppingGoods} onChangeShoppingGoods={onChangeShoppingGoods}
+        shoppingServices={shoppingServices} onChangeShoppingServices={onChangeShoppingServices}
+    /> 
+    ];
+
+    const previousPage = e => {
         e.preventDefault();
-        formStepsNum--;
-        updateFormSteps();
+
+        setActiveTab(activeTab - 1);
+    }
+
+    const nextPage = e => {
+        e.preventDefault();
+
+        console.log(city);
+        setActiveTab(activeTab + 1);
     }
 
     const onSubmit = e => {
-        //upload to database
+        e.preventDefault();
+
+        const newFootprint = {
+            user_id: userID,
+            city: city,
+            state: _state,
+            household_size: householdSize,
+            household_income: householdIncome,
+            vehicle_miles: vehicleMiles,
+            vehicle_mpg: vehicleMPG,
+            public_transit_miles: publicTransitMiles,
+            air_miles: airMiles,
+            living_space_area: livingArea,
+            electric_bill: electricBill,
+            water_bill: waterBill,
+            natural_gas: naturalGas,
+            other_fuels: otherFuels,
+            animal_protein_cal: animalProtein,
+            grains_cal: grains,
+            dairy_cal: dairy,
+            fruit_veg_cal: fruitVeg,
+            snacks_cal: snacks,
+            shopping_goods: shoppingGoods,
+            shopping_services: shoppingServices 
+        }
+
+        console.log(newFootprint);
+        createFootprint(newFootprint);
     }
 
 
     return (
-        <body>
-            <h1 className="primary">Calculate Carbon Footprint</h1>
-            <div class = "fpc">
-                <div class="section">
-                    <div class="container">
-                        <form onSubmit={onSubmit}>
-                            <div class="step step-1 step-active">
-                                <h3>Household Information</h3>
-                                <div class="form-group">
-                                    <label for="city">City&nbsp;</label>
-                                    <label className="text-danger">*</label>
-                                    <input type="text" id="city" name="city"></input>
-                                </div>
-                                <div class="form-group">
-                                    <label for="state">State&nbsp;</label>
-                                    <label className="text-danger">*</label>
-                                    <input type="text" id="state" name="state"></input>
-                                </div>
-                                <div class="form-group">
-                                    <label for="householdsize">Household Size&nbsp;</label>
-                                    <label className="text-danger">*</label>
-                                    <input type="text" id="householdsize" name="household-size"></input>
-                                </div>
-                                <div class="form-group">
-                                    <label for="householdincome">Household Annual Income&nbsp;</label>
-                                    <label className="text-danger">*</label>
-                                    <input type="text" id="householdincome" name="household-income"></input>
-                                </div>
-                                <h5>&nbsp;</h5>
-                                <button type="button" class="next-btn" onClick={onClickNext}>Next</button>
-                            </div>
-
-                            <div class="step step-2">
-                                <h3>Travel Information</h3>
-                                <h5>&nbsp;</h5>
-                                <h5>Private Vehicle(s)</h5>
-                                <div class="form-group">
-                                    <label for="vehiclemiles">Average Travel (miles/year)</label>
-                                    <input type="text" id="vehiclemiles" name="vehicle-miles"></input>
-                                </div>
-                                <div class="form-group">
-                                    <label for="vehiclempg">Average Gas Consumption (miles/gallon)</label>
-                                    <input type="number" id="vehiclempg" name="vehicle-mpg"></input>
-                                </div>
-                                    <h5>&nbsp;</h5>
-                                    <h5>Public Transit</h5>
-                                <div class="form-group">
-                                    <label for="ptransitmiles">Average Travel (miles/year)</label>
-                                    <input type="text" id="ptransitmiles" name="ptransit-miles"></input>
-                                </div>
-                                    <h5>&nbsp;</h5>
-                                    <h5>Air Travel</h5>
-                                <div class="form-group">
-                                    <label for="airmiles">Average Travel (miles/year)</label>
-                                    <input type="text" id="airmiles" name="air-miles"></input>
-                                </div>
-                                <h5>&nbsp;</h5>
-                                <button type="button" class="previous-btn" onClick={onClickPrev}>Prev</button>
-                                <button type="button" class="next-btn" onClick={onClickNext}>Next</button>
-                            </div>
-
-                            <div class="step step-3">
-                                <h3>Home Information</h3>
-                                <div class="form-group">
-                                    <label for="livingspace">Living Space Area (square foot)&nbsp;</label>
-                                    <label className="text-danger">*</label>
-                                    <input type="text" id="livingspace" name="living-space"></input>
-                                </div>
-                                <div class="form-group">
-                                    <label for="electricbill">Electricity Bill (monthtly average)&nbsp;</label>
-                                    <label className="text-danger">*</label>
-                                    <input type="text" id="electricbill" name="electric-bill"></input>
-                                </div>
-                                <div class="form-group">
-                                    <label for="waterbill">Water Bill (monthtly average)&nbsp;</label>
-                                    <label className="text-danger">*</label>
-                                    <input type="text" id="waterbill" name="water-bill"></input>
-                                </div>
-                                <h5>&nbsp;</h5>
-                                <h5>Additional Natural Resources</h5>
-                                <div class="form-group">
-                                    <label for="naturalgas">Natural Gas (therms/year)</label>
-                                    <input type="text" id="naturalgas" name="natural-gas"></input>
-                                </div>
-                                <div class="form-group">
-                                    <label for="fuels">Other Fuels (gallons/year)</label>
-                                    <input type="text" id="fuels" name="fuels"></input>
-                                </div>
-                                <h5>&nbsp;</h5>
-                                <button type="button" class="previous-btn" onClick={onClickPrev}>Prev</button>
-                                <button type="button" class="next-btn" onClick={onClickNext}>Next</button>
-                            </div>
-
-                            <div class="step step-4">
-                                <h3>Food Information</h3>
-                                <h5>&nbsp;</h5>
-                                <h5>Average Daily Consumption</h5>
-                                <div class="form-group">
-                                    <label for="animalprotein">Meat, Fish, Eggs (calories/person)&nbsp;</label>
-                                    <label className="text-danger">*</label>
-                                    <input type="text" id="animalprotein" name="animal-protein"></input>
-                                </div>
-                                <div class="form-group">
-                                    <label for="grains">Grains and Baked Goods (calories/person)&nbsp;</label>
-                                    <label className="text-danger">*</label>
-                                    <input type="text" id="grains" name="grains"></input>
-                                </div>
-                                <div class="form-group">
-                                    <label for="dairy">Dairy (calories/person)&nbsp;</label>
-                                    <label className="text-danger">*</label>
-                                    <input type="text" id="dairy" name="dairy"></input>
-                                </div>
-                                <div class="form-group">
-                                    <label for="fruitveg">Fruits and Vegetables (calories/person)&nbsp;</label>
-                                    <label className="text-danger">*</label>
-                                    <input type="text" id="fruitveg" name="fruit-veg"></input>
-                                </div>
-                                <div class="form-group">
-                                    <label for="snacks">Other Snacks (calories/person)&nbsp;</label>
-                                    <label className="text-danger">*</label>
-                                    <input type="text" id="snacks" name="snacks"></input>
-                                </div>
-                                <h5>&nbsp;</h5>
-                                <button type="button" class="previous-btn" onClick={onClickPrev}>Prev</button>
-                                <button type="button" class="next-btn" onClick={onClickNext}>Next</button>
-                            </div>
-                            <div class="step step-5">
-                                <h3>Shopping Information</h3>
-                                <div class="form-group">
-                                    <label for="shoppinggoods">Goods ($/month)&nbsp;</label>
-                                    <label className="text-danger">*</label>
-                                    <input type="text" id="shoppinggoods" name="shopping-goods"></input>
-                                </div>
-                                <div class="form-group">
-                                    <label for="shoppingservices">Services ($/month)&nbsp;</label>
-                                    <label className="text-danger">*</label>
-                                    <input type="text" id="shoppingservices" name="shopping-services"></input>
-                                </div>
-                                <h5>&nbsp;</h5>
-                                <button type="button" class="previous-btn" onClick={onClickPrev}>Prev</button>
-                                <button type="button" class="next-btn" onClick={onClickNext}>Submit</button>
-                            </div>
-                            <div class="step step-6">
-                                <h3>Carbon Footprint Resutls</h3>
-                                <h5>&nbsp;</h5>
-                                <h5>Carbon Footprint = 49 (CO2-Tons/year)</h5>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+        <div>
+            <div className="currentTab">
+                { tabs[activeTab] }
             </div>
-        </body>
+            { activeTab > 0 ? 
+                <input type="submit" onClick={previousPage} value="Previous Page" className="btn btn-primary" />
+            : null }
+            { activeTab < 4 ?
+                <input type="submit" onClick={nextPage} value="Next Page" className="btn btn-primary" />
+            : null }
+            { activeTab == 4 ?
+                <input type="submit" onClick={onSubmit} value="Submit" className="btn btn-primary" />
+            : null }
+        </div>
     )
 }
 const fetchUserData = ({session}) => ({
     user: session.user
 })
 
-export default connect(fetchUserData)(FootPrintCalc);
+export default connect(fetchUserData, {createFootprint})(FootPrintCalc);
