@@ -197,6 +197,7 @@ const FootPrintCalc = ({ props, user }) => {
         createFootprint(newFootprint);
     }
 
+
     return (
         <div>
             <div className="currentTab">
@@ -214,7 +215,6 @@ const FootPrintCalc = ({ props, user }) => {
         </div>
     )
 }
-
 const fetchUserData = ({session}) => ({
     user: session.user
 })
