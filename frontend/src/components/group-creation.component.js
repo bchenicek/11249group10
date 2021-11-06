@@ -60,7 +60,7 @@ const GroupCreation = ({ props, user }) => {
 
         createGroup(group)
         console.log(group);
-        //history.push('/event-search');
+        history.push('/event-search');
     }
 
     const backToSearch = e => {
