@@ -11,17 +11,21 @@ router.route('/').get((req, res) => {
 router.route('/create').post((req, res) => {
     const group_name = req.body.group_name;
     const group_type = req.body.group_type;
+    const is_private = req.body.is_private;
     const description = req.body.description;
     const city = req.body.city;
     const state = req.body.state;
+    const owner = req.body.owner;
     const members = req.body.members;
     
     const newGroup = new Group({ 
         group_name,
         group_type,
+        is_private,
         description,
         city,
         state,
+        owner,
         members 
     });
 
@@ -72,9 +76,11 @@ router.route('/update').put((req, res) => {
                 _id: group_id,
                 group_name: req.body.group_name,
                 group_type: req.body.group_type,
+                is_private: req.body.is_private,
                 description: req.body.description,
                 city: req.body.city,
                 state: req.body.state,
+                owner: req.body.owner,
                 members: req.body.members 
             });
             

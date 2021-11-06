@@ -14,6 +14,10 @@ const groupSchema = new Schema({
         required: true,
         trim: true
     },
+    is_private: {
+        type: Boolean,
+        required: true
+    },
     description: {
         type: String,
         required: false,
@@ -28,6 +32,10 @@ const groupSchema = new Schema({
         type: String,
         required: true,
         trim: true
+    },
+    owner: {
+        type: String,
+        required: true
     },
     members: {
         type: Array,

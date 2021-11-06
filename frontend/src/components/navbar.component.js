@@ -34,6 +34,11 @@ const Navbar = ({ props, authenticated }) => {
                     <Link to="/challenges" className="nav-link" style={{color:"black"}}>Challenge Page</Link> 
                     </li>
                 : null } 
+                { authenticated ? 
+                    <li className="navbar-item">
+                    <Link to="/event-search" className="nav-link" style={{color:"black"}}>Find Events</Link> 
+                    </li>
+                : null } 
             </ul>
             </div>
         </nav>
