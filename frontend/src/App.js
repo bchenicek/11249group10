@@ -9,6 +9,8 @@ import HomePage from './components/home-page.component';
 import Dashboard from './components/dashboard.component';
 import FootPrint from './components/footprint-calc.component';
 import Challenges from './components/challenges.component';
+import GroupSearch from './components/group-search.component';
+import GroupCreation from './components/group-creation.component';
 
 import AuthRoute from './components/AuthRoute';
 import BasicRoute from './components/BasicRoute';
@@ -37,6 +39,12 @@ function App() {
         </AuthRoute>
         <AuthRoute path="/challenges">
           <Challenges />
+        </AuthRoute>
+        <AuthRoute path="/event-search">
+          <GroupSearch />
+        </AuthRoute>
+        <AuthRoute path="/create-event">
+          <GroupCreation />
         </AuthRoute>
       </div>
     </Router>

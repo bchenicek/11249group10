@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { sessionService } from 'redux-react-session';
 
-
 export const loginUser = (user, history) => {
     axios.post('http://localhost:5000/users/login', user, {
         headers: {
