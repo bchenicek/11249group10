@@ -8,6 +8,12 @@ router.route('/').get((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.route('/:id').get((req, res) => {
+    Group.findById(req.params.id)
+        .then(group => res.json(group))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
 router.route('/create').post((req, res) => {
     const group_name = req.body.group_name;
     const group_type = req.body.group_type;

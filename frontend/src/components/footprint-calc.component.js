@@ -209,12 +209,13 @@ const FootPrintCalc = ({ props, user }) => {
             { activeTab < 4 ?
                 <input type="submit" onClick={nextPage} value="Next Page" className="btn btn-primary" />
             : null }
-            { activeTab == 4 ?
+            { activeTab === 4 ?
                 <input type="submit" onClick={onSubmit} value="Submit" className="btn btn-primary" />
             : null }
         </div>
     )
 }
+
 const fetchUserData = ({session}) => ({
     user: session.user
 })

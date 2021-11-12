@@ -11,6 +11,7 @@ import FootPrint from './components/footprint-calc.component';
 import Challenges from './components/challenges.component';
 import GroupSearch from './components/group-search.component';
 import GroupCreation from './components/group-creation.component';
+import GroupView from './components/group-view.component';
 
 import AuthRoute from './components/AuthRoute';
 import BasicRoute from './components/BasicRoute';
@@ -45,6 +46,9 @@ function App() {
         </AuthRoute>
         <AuthRoute path="/create-event">
           <GroupCreation />
+        </AuthRoute>
+        <AuthRoute path="/group/:id">
+          <GroupView />
         </AuthRoute>
       </div>
     </Router>
