@@ -1,17 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Stylesheet.css'
 
 import { connect } from 'react-redux';
 import { logoutUser } from '../auth/actions/userActions';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 
 const Dashboard = ({ props, user }) => {
+    
     const history = useHistory();
+    const [footprints, setFootprints] = useState([]);
     
     useEffect(() =>{
         document.title = "Account Dashboard";
-    })
+        const axiosFootprints = async () => {
+            const response = await axios.get('http://localhost:5000/footprints/' + user._id);
+            setFootprints(response.data);
+            console.log(response.data); 
+        };
+        axiosFootprints();
+    }, []);
 
     const onSubmit = e => {
         logoutUser(history);
@@ -21,7 +30,7 @@ const Dashboard = ({ props, user }) => {
         <div>
             <h1 className="primary">Welcome, {user.first_name} </h1>
             <h2 className="secondary">
-                Here is your user dashboard! 
+            Here is your user dashboard! 
             </h2>
             <div className="userTable">
             <table>

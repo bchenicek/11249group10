@@ -2,13 +2,11 @@ const router = require('express').Router();
 
 let Footprint = require('../models/footprint.model');
 
-router.route('/').get((req, res) => {
-    const user_id = req.body.user_id;
-
-    Footprint.find({ user_id: user_id })
-        .then(footprints => res.json(footprints))
-        .catch(err => res.status(400).json('Error: ' + err));
-})
+router.route('/:user_id').get((req, res) => {
+    Footprint.find({user_id: req.params.user_id})
+    .then(footprints => res.json(footprints))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
 
 router.route('/create').post((req, res) => {
     const user_id = req.body.user_id;
