@@ -17,12 +17,20 @@ const Dashboard = ({ props, user }) => {
         logoutUser(history);
     }
 
+    const tasks = ["Ride a bike or walk instead of using a car for one trip today", "Try to take a shower that is less than 20 minutese", "Recycle at least 5 things today", "Eat plant based for 24 hours", "Try to produce zero food waste today",  "Make sure that you're keeping off lights you aren't using, and try using natural light", "Unplug all electronics that you are not currently using to save power"];
+    const today = new Date();
+
+    alert("Today's challenge is: " + tasks[today.getDay()]);
+    
     return (
+    
         <div>
             <h1 className="primary">Welcome, {user.first_name} </h1>
             <h2 className="secondary">
                 Here is your user dashboard! 
             </h2>
+
+            
             <div className="userTable">
             <table>
             <tr> 
@@ -118,6 +126,8 @@ const Dashboard = ({ props, user }) => {
                 </div>
             </form>
         </div>
+
+      
     )
 }
 
