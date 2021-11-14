@@ -35,6 +35,14 @@ const userSchema = new Schema({
     birth_date: {
         type: Date,
         required: false
+    },
+    groups: {
+        type: Array,
+        required: true
+    },
+    friends: {
+        type: Array,
+        required: true
     }
 }, {
     timestamps: true,

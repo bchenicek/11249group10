@@ -6,7 +6,7 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker, } from "react-google-ma
 import axios from 'axios';  
 
 const GroupList = props => {
-  if (props.groups) {
+  if (props.groups.length > 0) {
     return (     
       props.groups.map(group => {       
         return (

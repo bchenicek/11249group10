@@ -1,6 +1,8 @@
 import React from "react";
 
 const HouseholdInformation = props => {
+    const states = [ "AK", "AL", "AR", "AS", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "GU", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "PR", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VI", "VT", "WA", "WI", "WV", "WY"];
+    
     return (
         <div>
             <h3>Household Information</h3>
@@ -16,12 +18,19 @@ const HouseholdInformation = props => {
                 </div>
                 <div className="form-group">
                     <label>State:</label>
-                    <input type="state"
+                    <select 
                         required
                         className="form-control"
                         value={props._state}
-                        onChange={props.onChangeState}
-                        />
+                        onChange={props.onChangeState}>
+                        { 
+                            states.map(currState => {       
+                                return (
+                                    <option value={currState}>{currState}</option>
+                                )
+                            }) 
+                        }
+                    </select>
                 </div>
                 <div className="form-group">
                     <label>Household Size:</label>

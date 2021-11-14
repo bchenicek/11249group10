@@ -12,7 +12,10 @@ const GroupCreation = ({ props, user }) => {
     const [is_private, setPrivate] = useState(false);
     const [description, setDescription] = useState("");
     const [city, setCity] = useState("");
-    const [_state, set_State] = useState("");
+    const [_state, set_State] = useState("AK");
+    const [zip, setZip] = useState("");
+
+    const states = [ "AK", "AL", "AR", "AS", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "GU", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "PR", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VI", "VT", "WA", "WI", "WV", "WY"];
 
     const history = useHistory();
 
@@ -44,6 +47,10 @@ const GroupCreation = ({ props, user }) => {
         set_State(e.target.value)
     }
 
+    const onChangeZip = e => {
+        setZip(e.target.value)
+    }
+
     const onSubmit = e => {
         e.preventDefault();
 
@@ -54,12 +61,13 @@ const GroupCreation = ({ props, user }) => {
             description: description,
             city: city,
             state: _state,
+            zip_code: zip,
             owner: user._id,
             members: [user._id]
         }
 
         createGroup(group)
-        console.log(group);
+console.log(group);
         history.push('/event-search');
     }
 
@@ -93,7 +101,7 @@ const GroupCreation = ({ props, user }) => {
                         value={group_type}
                         onChange={onChangeGroupType}>
                         <option key="Carpool" value="Carpool">Carpool</option>
-                        <option key="Food" value="Food">Food</option>
+                        <option key="Picnic" value="Picnic">Picnic</option>
                         <option key="Other" value="Other">Other</option>
                     </select>
                 </div>
@@ -129,11 +137,27 @@ const GroupCreation = ({ props, user }) => {
                 <div className="form-group">
                     <label>State:&nbsp;</label>
                     <label className="text-danger">*</label>
+                    <select 
+                        required
+                        className="form-control"
+                        onChange={onChange_State}>
+                        { 
+                            states.map(currState => {       
+                                return (
+                                    <option value={currState}>{currState}</option>
+                                )
+                            }) 
+                        }
+                    </select>
+                </div>
+                <div className="form-group">
+                    <label>Zip Code:&nbsp;</label>
+                    <label className="text-danger">*</label>
                     <input type="text"
                         required
                         className="form-control"
-                        value={_state}
-                        onChange={onChange_State}
+                        value={zip}
+                        onChange={onChangeZip}
                         />
                 </div>
 

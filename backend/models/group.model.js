@@ -33,6 +33,12 @@ const groupSchema = new Schema({
         required: true,
         trim: true
     },
+    zip_code: {
+        type: String,
+        required: true,
+        trim: true,
+        minlength: 5
+    },
     owner: {
         type: String,
         required: true

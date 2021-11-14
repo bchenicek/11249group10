@@ -1,6 +1,7 @@
 const router = require('express').Router();
 
 let Group = require('../models/group.model');
+let User = require('../models/user.model');
 
 router.route('/').get((req, res) => {
     Group.find()
@@ -21,6 +22,7 @@ router.route('/create').post((req, res) => {
     const description = req.body.description;
     const city = req.body.city;
     const state = req.body.state;
+    const zip_code = req.body.zip_code;
     const owner = req.body.owner;
     const members = req.body.members;
     
@@ -31,12 +33,35 @@ router.route('/create').post((req, res) => {
         description,
         city,
         state,
+        zip_code,
         owner,
         members 
     });
 
     newGroup.save()
-        .then(() => res.json('Group created!'))
+        .then(group => {
+            const group_id = group._id.toString();
+
+            User.findById(owner)
+                .then(owner_obj => {
+                    const updated_groups = owner_obj.groups;
+
+                    if (!updated_groups.includes(group_id)) {
+                        updated_groups.push(group_id);
+                    }
+
+                    User.findByIdAndUpdate(owner, { groups: updated_groups }, { upsert: true })
+                        .then(updated_user => {
+                            res.json(updated_user);
+                        })
+                        .catch(err => {
+                            res.status(400).json({
+                                "status": "catch_error",
+                                "message": "An error was thrown while assigning group to user."
+                        })
+                })
+            })
+        })
         .catch(err => {
             res.status(400).json({
                 "status": "catch_error",
@@ -52,11 +77,32 @@ router.route('/join').put((req, res) => {
     Group.findById(group_id)
         .then(group => {
             const updated_members = group.members;
-            updated_members.push(new_member);
+            
+            if (!updated_members.includes(new_member)) {
+                updated_members.push(new_member);
+            }
             
             Group.findByIdAndUpdate(group_id, { members: updated_members }, { upsert: true })
                 .then(updated_group => {
-                    res.json(updated_group)
+                    User.findById(new_member)
+                        .then(new_member_obj => {
+                            const updated_groups = new_member_obj.groups;
+
+                            if (!updated_groups.includes(group_id)) {
+                                updated_groups.push(group_id);
+                            }
+
+                            User.findByIdAndUpdate(new_member, { groups: updated_groups }, { upsert: true })
+                                .then(updated_user => {
+                                    res.json(updated_user);
+                                })
+                                .catch(err => {
+                                    res.status(400).json({
+                                        "status": "catch_error",
+                                        "message": "An error was thrown while assigning group to user."
+                                    })
+                            })
+                        })
                 })
                 .catch(err => {
                     res.status(400).json({
@@ -86,6 +132,7 @@ router.route('/update').put((req, res) => {
                 description: req.body.description,
                 city: req.body.city,
                 state: req.body.state,
+                zip_code: req.body.zip_code,
                 owner: req.body.owner,
                 members: req.body.members 
             });

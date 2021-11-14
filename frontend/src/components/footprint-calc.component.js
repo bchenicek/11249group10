@@ -3,10 +3,13 @@ import './Stylesheet.css'
 
 import { connect } from 'react-redux';
 import { createFootprint } from './../auth/actions/footprintActions';
+import { useHistory } from 'react-router-dom';
 
 import { HouseholdInformation, TravelInformation, HomeInformation, FoodInformation, ShoppingInformation } from './calculator-tabs.component'
 
 const FootPrintCalc = ({ props, user }) => {
+    const history = useHistory();
+    
     const [activeTab, setActiveTab] = useState(0);
     
     const userID = user._id;
@@ -195,6 +198,8 @@ const FootPrintCalc = ({ props, user }) => {
 
         console.log(newFootprint);
         createFootprint(newFootprint);
+
+        history.push('/dashboard');
     }
 
 
