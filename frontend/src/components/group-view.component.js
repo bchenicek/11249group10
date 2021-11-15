@@ -143,6 +143,20 @@ const GroupView = ({ props, user }) => {
             .catch(err => console.log(err));
     }
 
+    const deleteGroup = e => {
+        const confirmDelete = window.confirm("Please confirm that you would like to delete: " + group_name);
+        
+        if (confirmDelete) {
+            axios.delete('http://localhost:5000/groups/'+id)
+                .then(res => console.log(res.data))
+                .catch(err => console.log(err));
+            
+            history.push('/event-search');
+        } else {
+            alert("Didn't delete.");
+        }
+    }
+
     const MapWithAMarker = withScriptjs(withGoogleMap(props =>
         <GoogleMap defaultZoom={8} defaultCenter={{ lat: lat, lng: lon }}>
             <Marker position={{ lat: lat, lng: lon }}/>
@@ -174,6 +188,10 @@ const GroupView = ({ props, user }) => {
                 is_private ? 
                 <input type="button" onClick={requestJoin} value="Request to Join" className="btn btn-primary" /> :
                 <input type="button" onClick={joinGroup} value="Join Group" className="btn btn-primary" /> :
+                null
+            }
+            { user._id === owner ? 
+                <input type="button" onClick={deleteGroup} value="Delete Group" className="btn btn-primary" /> :
                 null
             }
         </div>

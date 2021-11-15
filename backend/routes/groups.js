@@ -156,4 +156,51 @@ router.route('/update').put((req, res) => {
         })
 });
 
+router.route('/:id').delete((req, res) => {
+    Group.findById(req.params.id)
+        .then(group => {
+            const members = group.members;
+            
+            members.forEach(member => {
+                User.findById(member)
+                    .then(member_obj => {
+                        const member_groups = member_obj.groups;
+            
+                        if (member_groups.includes(req.params.id)) {
+                            const index = member_groups.indexOf(req.params.id);
+
+                            if (index > -1) {
+                                member_groups.splice(index, 1);
+                            }
+                        }
+
+                        User.findByIdAndUpdate(member, { groups: member_groups }, { upsert: true })
+                            .catch(err => {
+                                res.status(400).json({
+                                    "status": "catch_error",
+                                    "message": "An error was thrown while removing group from user."
+                                })
+                            })
+                    })
+            })
+            
+            Group.findByIdAndDelete(req.params.id)
+                .then(res => {
+                    res.json(res)
+                })
+                .catch(err => {
+                    res.status(400).json({
+                        "status": "catch_error",
+                        "message": "An error was thrown while deleting the group."
+                    })
+                })
+        })
+        .catch(err => {
+            res.status(400).json({
+                "status": "catch_error",
+                "message": "An error was thrown while deleting the group."
+            })
+        })
+});
+
 module.exports = router;
