@@ -46,6 +46,10 @@ const groupSchema = new Schema({
     members: {
         type: Array,
         required: true
+    },
+    messages: {
+        type: Array,
+        required: false
     }
 }, {
     timestamps: true,

@@ -6,7 +6,7 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker, } from "react-google-ma
 import axios from 'axios';
 
 const MemberList = props => {
-    if (props.members) {
+    if (props.members.length > 0) {
         return (     
             props.members.map(member => {       
                 return (
@@ -23,6 +23,7 @@ const MemberList = props => {
 
 const Member = props => {
     const [username, setUsername] = useState("");
+    const [user_id, setUserId] = useState("");
 
     useEffect(() => {
         getMemberData();
@@ -33,6 +34,7 @@ const Member = props => {
         axios.get('http://localhost:5000/users/'+props.member)
             .then(member => {
                 setUsername(member.data.username);
+                setUserId(member.data._id.toString());
             })
             .catch(error => {
                 console.log(error);
@@ -40,9 +42,33 @@ const Member = props => {
     }
     
     return (
-        <tr>
-            <td>{ username }</td>
-        </tr>
+        <div>
+            <Link to={"/user/" + user_id}>{ username }</Link>
+        </div>
+    )
+}
+
+const MessageBoard = props => {
+    if (props.messages.length > 0) {
+        return (     
+            props.messages.map(message => {       
+                return (
+                    <Message message={message} />
+                )
+            })
+        )
+    } else {
+        return (
+            <p>There are currrently no announcements for this event.</p>
+        )
+    }
+}
+
+const Message = props => {    
+    return (
+        <div>
+            <b>{ props.message[0] }</b> - { props.message[1] }
+        </div>
     )
 }
 
@@ -59,25 +85,29 @@ const GroupView = ({ props, user }) => {
     const [zip, setZip] = useState("");
     const [owner, setOwner] = useState("");
     const [members, setMembers] = useState([]);
+    const [messages, setMessages] = useState([]);
 
     const [lat, setLat] = useState(0);
     const [lon, setLon] = useState(0);
     
     const [owner_username, setOwnerUsername] = useState("");
     const [isInGroup, setIsInGroup] = useState(false);
+    const [hasRequestedGroup, setHasRequestedGroup] = useState(false);
     
-    let mapData = null;
     useEffect(() => {
         getGroupData();
-
-        console.log(mapData);
-
-        document.title = group_name;
     }, [])
 
     const getGroupData = () => {
         axios.get('http://localhost:5000/groups/'+id)
-            .then(group => {
+            .then(group => {               
+                const matchRequest = {
+                    group_id: id,
+                    requestor_id: user._id
+                };
+                
+                document.title = group.data.group_name;
+
                 setGroupName(group.data.group_name);
                 setGroupType(group.data.group_type);
                 setPrivate(group.data.is_private);
@@ -87,13 +117,23 @@ const GroupView = ({ props, user }) => {
                 setZip(group.data.zip_code);
                 setOwner(group.data.owner);
                 setMembers(group.data.members);
+                setMessages(group.data.messages);
 
                 setIsInGroup((group.data.members).includes(user._id));
 
                 axios.get('http://localhost:5000/users/'+group.data.owner)
                     .then(owner => {
                         setOwnerUsername(owner.data.username);
-                        console.log(owner)
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
+
+                axios.post('http://localhost:5000/requests/match-group', matchRequest)
+                    .then(requests => {
+                        if (requests.data.length > 0) {
+                            setHasRequestedGroup(true);
+                        }
                     })
                     .catch(error => {
                         console.log(error);
@@ -113,32 +153,55 @@ const GroupView = ({ props, user }) => {
     const backToSearch = e => {
         e.preventDefault();
         
-        history.push('/event-search');
+        history.goBack();
     }
 
     const requestJoin = e => {
         e.preventDefault();
         
+        setHasRequestedGroup(true);
+
         const requestData = {
-            requestor: user._id,
+            requestor_id: user._id,
+            requestor_name: user.username,
             recipient: owner,
-            group_id: id
+            group_id: id,
+            group_name, group_name,
+            message: ""
         };
 
         axios.post('http://localhost:5000/requests/group', requestData)
-            .then(res => console.log(res.data))
+            .then(res => {
+                console.log(res.data)
+                alert('Your request has been sent!');
+            })
             .catch(err => console.log(err));
-
-        alert('Your request has been sent!');
     }
 
     const joinGroup = e => {
+        setIsInGroup(true);
+        setMembers([...members, user._id]);
+        
         const userData = {
             group_id: id,
             new_member: user._id
         };
 
         axios.put('http://localhost:5000/groups/join', userData)
+            .then(res => console.log(res.data))
+            .catch(err => console.log(err));
+    }
+
+    const leaveGroup = e => {
+        setIsInGroup(false);
+        setMembers(members.filter(member => member !== user._id));
+        
+        const userData = {
+            group_id: id,
+            new_member: user._id
+        };
+
+        axios.put('http://localhost:5000/groups/leave', userData)
             .then(res => console.log(res.data))
             .catch(err => console.log(err));
     }
@@ -152,8 +215,6 @@ const GroupView = ({ props, user }) => {
                 .catch(err => console.log(err));
             
             history.push('/event-search');
-        } else {
-            alert("Didn't delete.");
         }
     }
 
@@ -163,9 +224,33 @@ const GroupView = ({ props, user }) => {
         </GoogleMap>
     ));
 
+    const onSubmit = e => {
+        e.preventDefault();
+
+        const subject = document.getElementById("subject").value;
+        const message = document.getElementById("message").value;
+
+        setMessages([...messages, [subject, message]]);
+
+        const group_message = {
+            group_id: id,
+            subject: subject,
+            message: message
+        };
+
+        axios.post('http://localhost:5000/groups/send-message', group_message)
+            .then(res => {
+                document.getElementById("subject").value = "";
+                document.getElementById("message").value = "";
+                
+                console.log(res.data)
+            })
+            .catch(err => console.log(err));
+    }
+
     return (
         <div>
-            <input type="button" onClick={backToSearch} value="Back to Search" className="btn btn-primary" />
+            <input type="button" onClick={backToSearch} value="Back" className="btn btn-primary" />
             <h2>{ group_name }</h2>
             <h5 className="text-secondary">{ group_type } organized by { owner_username }</h5>
             
@@ -179,19 +264,53 @@ const GroupView = ({ props, user }) => {
                         containerElement={<div style={{ height: '400px' }} />}
                         mapElement={<div style={{ height: '100%' }} />}
                     />
+                    <h5>Description</h5>
                     <p>{ description }</p>
                     <h5>Members</h5>
                     <MemberList members={members} />
+                    <br />
                 </div>
             }
             { !isInGroup ? 
                 is_private ? 
-                <input type="button" onClick={requestJoin} value="Request to Join" className="btn btn-primary" /> :
+                    hasRequestedGroup ?
+                        <p className="text-secondary">Awaiting request approval.</p> :
+                        <input type="button" onClick={requestJoin} value="Request to Join" className="btn btn-primary" /> :
                 <input type="button" onClick={joinGroup} value="Join Group" className="btn btn-primary" /> :
-                null
+                <div>
+                    <h5>Announcements</h5>
+                    <MessageBoard messages={messages} />
+                    { user._id !== owner ?
+                        <input type="button" onClick={leaveGroup} value="Leave Group" className="btn btn-primary" /> :
+                        <br />
+                    }
+                    
+                </div>
             }
+            
             { user._id === owner ? 
-                <input type="button" onClick={deleteGroup} value="Delete Group" className="btn btn-primary" /> :
+                <div>
+                    <h5>Post Announcement to Group</h5>
+                    <form onSubmit={onSubmit}>
+                    <label>Subject: </label>
+                    <input type="text"
+                        required
+                        id="subject"
+                        className="form-control"
+                        />
+                    <label>Message: </label>
+                    <textarea
+                        required 
+                        id="message"
+                        className="form-control"
+                        /> 
+                    <div className="form-group">
+                        <input type="submit" value="Send Message" className="btn btn-primary" />
+                    </div>
+                    </form>
+                    <br />
+                    <input type="button" onClick={deleteGroup} value="Delete Group" className="btn btn-primary" />
+                </div> :
                 null
             }
         </div>

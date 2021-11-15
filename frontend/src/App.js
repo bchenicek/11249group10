@@ -12,6 +12,8 @@ import Challenges from './components/challenges.component';
 import GroupSearch from './components/group-search.component';
 import GroupCreation from './components/group-creation.component';
 import GroupView from './components/group-view.component';
+import UserView from './components/user-view.component';
+import NotificationPage from './components/notifications.component';
 
 import AuthRoute from './components/AuthRoute';
 import BasicRoute from './components/BasicRoute';
@@ -49,6 +51,12 @@ function App() {
         </AuthRoute>
         <AuthRoute path="/group/:id">
           <GroupView />
+        </AuthRoute>
+        <AuthRoute path="/user/:id">
+          <UserView />
+        </AuthRoute>
+        <AuthRoute path="/notifications">
+          <NotificationPage />
         </AuthRoute>
       </div>
     </Router>

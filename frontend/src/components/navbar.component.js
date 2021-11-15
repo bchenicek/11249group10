@@ -26,6 +26,11 @@ const Navbar = ({ props, authenticated }) => {
                 : null }  
                 { authenticated ? 
                     <li className="navbar-item">
+                    <Link to="/notifications" className="nav-link" style={{color:"black"}}>Notifications</Link> 
+                    </li>
+                : null } 
+                { authenticated ? 
+                    <li className="navbar-item">
                     <Link to="/footprint-calculator" className="nav-link" style={{color:"black"}}>Carbon Footprint Calculator</Link> 
                     </li>
                 : null } 

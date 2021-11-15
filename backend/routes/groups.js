@@ -25,6 +25,7 @@ router.route('/create').post((req, res) => {
     const zip_code = req.body.zip_code;
     const owner = req.body.owner;
     const members = req.body.members;
+    const messages = []
     
     const newGroup = new Group({ 
         group_name,
@@ -35,7 +36,8 @@ router.route('/create').post((req, res) => {
         state,
         zip_code,
         owner,
-        members 
+        members,
+        messages
     });
 
     newGroup.save()
@@ -119,6 +121,95 @@ router.route('/join').put((req, res) => {
         })
 });
 
+router.route('/leave').put((req, res) => {
+    const group_id = req.body.group_id;
+    const new_member = req.body.new_member;
+
+    Group.findById(group_id)
+        .then(group => {
+            const updated_members = group.members;
+            
+            if (updated_members.includes(new_member)) {
+                const index = updated_members.indexOf(new_member);
+
+                if (index > -1) {
+                    updated_members.splice(index, 1);
+                }
+            }
+            
+            Group.findByIdAndUpdate(group_id, { members: updated_members }, { upsert: true })
+                .then(updated_group => {
+                    User.findById(new_member)
+                        .then(new_member_obj => {
+                            const updated_groups = new_member_obj.groups;
+
+                            if (updated_groups.includes(group_id)) {
+                                const index = updated_groups.indexOf(group_id);
+                
+                                if (index > -1) {
+                                    updated_groups.splice(index, 1);
+                                }
+                            }
+
+                            User.findByIdAndUpdate(new_member, { groups: updated_groups }, { upsert: true })
+                                .then(updated_user => {
+                                    res.json(updated_user);
+                                })
+                                .catch(err => {
+                                    res.status(400).json({
+                                        "status": "catch_error",
+                                        "message": "An error was thrown while assigning group to user."
+                                    })
+                            })
+                        })
+                })
+                .catch(err => {
+                    res.status(400).json({
+                        "status": "catch_error",
+                        "message": "An error was thrown while adding member to the group."
+                    })
+                })
+        })
+        .catch(err => {
+            res.status(400).json({
+                "status": "catch_error",
+                "message": "An error was thrown while finding the group."
+            })
+        })
+});
+
+router.route('/send-message').post((req, res) => {
+    const group_id = req.body.group_id;
+    const subject = req.body.subject;
+    const message = req.body.message;
+
+    const new_message = [subject, message];
+
+    Group.findById(group_id)
+        .then(group => {
+            const updated_messages = group.messages;
+            
+            updated_messages.push(new_message);
+            
+            Group.findByIdAndUpdate(group_id, { messages: updated_messages }, { upsert: true })
+                .then(updated_group => {
+                    res.json(updated_group);
+                })
+                .catch(err => {
+                    res.status(400).json({
+                        "status": "catch_error",
+                        "message": "An error was thrown while adding member to the group."
+                    })
+                })
+        })
+        .catch(err => {
+            res.status(400).json({
+                "status": "catch_error",
+                "message": "An error was thrown while finding the group."
+            })
+        })
+});
+
 router.route('/update').put((req, res) => {
     const group_id = req.body.group_id;
 
@@ -134,7 +225,8 @@ router.route('/update').put((req, res) => {
                 state: req.body.state,
                 zip_code: req.body.zip_code,
                 owner: req.body.owner,
-                members: req.body.members 
+                members: req.body.members,
+                messages: req.body.messages
             });
             
             Group.findByIdAndUpdate(group_id, updatedGroup.toObject(), { upsert: true })

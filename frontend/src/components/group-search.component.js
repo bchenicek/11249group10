@@ -60,8 +60,22 @@ const GroupSearch = props => {
   }
 
   const MapWithAMarker = withScriptjs(withGoogleMap(props =>
-      <GoogleMap defaultZoom={8} defaultCenter={{ lat: -34.397, lng: 150.644 }}>
-          <Marker position={{ lat: -34.397, lng: 150.644 }}/>
+      <GoogleMap defaultZoom={1} defaultCenter={{ lat: 0, lng: 0 }}>
+          {
+            groups.map(group => {
+              axios.get('http://api.openweathermap.org/geo/1.0/zip?zip=' + group.zip_code + '&appid=48ac371d9d3725d2e70f694104e17585')
+                .then(res => {
+                  const lat = res.data.lat;
+                  const lon = res.data.lon;
+
+                  console.log(lat + " " + lon);
+                  
+                  return (
+                    <Marker position={{ lat: lat, lng: lon }}/>
+                  )
+                });
+            })
+          }
       </GoogleMap>
   ));
 

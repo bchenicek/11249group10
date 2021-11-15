@@ -67,7 +67,7 @@ const GroupCreation = ({ props, user }) => {
         }
 
         createGroup(group)
-console.log(group);
+
         history.push('/event-search');
     }
 
