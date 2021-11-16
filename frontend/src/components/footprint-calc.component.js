@@ -200,14 +200,14 @@ const FootPrintCalc = ({ props, user }) => {
             electric_CO2: (electricBill/0.13)*0.42,
             water_CO2: (waterBill/0.0015)*0.085,
             natGas_CO2: naturalGas*5.44,
-            oFuel_CO2: otherFuels*5.72
-        /*    animalProtein_CO2: fruitVeg,
-            grains_CO2: fruitVeg,
-            dairy_CO2: fruitVeg,
-            FruitVeg_CO2: fruitVeg, 
-            snacks_CO2: fruitVeg,
-            goods_CO2: fruitVeg,
-            services_CO2: fruitVeg */
+            oFuel_CO2: otherFuels*5.72,
+            animalProtein_CO2: (animalProtein/2045)*15.29,
+            grains_CO2: (grains/1230)*1.8,
+            dairy_CO2: (dairy/2267)*7.7,
+            FruitVeg_CO2: (fruitVeg/1881)*2.1, 
+            snacks_CO2: (snacks/5291)*19,
+            goods_CO2: shoppingGoods*0.39,
+            services_CO2: (shoppingServices/42)*0.59*9.1
         }
 
         console.log(newFootprint);

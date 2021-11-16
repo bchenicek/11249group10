@@ -49,7 +49,6 @@ table, th, td {
     border: 1px solid #000;
 }
 
-
 .fpc * {
     padding: 0;
     margin: 0;
@@ -117,3 +116,18 @@ table, th, td {
     background-color: rgb(83, 190, 120);
 }
 
+.fpr * {
+    padding: 0;
+    margin: 0;
+}
+
+.fpr table {
+    width: 1050px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:30px;
+}
+
+.fpr table, th, td {
+    border: 1px solid #000;
+}
