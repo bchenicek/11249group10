@@ -49,3 +49,71 @@ table, th, td {
     border: 1px solid #000;
 }
 
+
+.fpc * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.fpc body {
+    font-family: "Montserrat";
+}
+.fpc .section {
+    position: relative;
+    top: 25px;
+    min-height: 20vh;
+    width: 100%;
+    display: flex;
+    align-items: top;
+    justify-content: center;
+    background-color: white;
+}
+.fpc .container {
+    max-width: 400px;
+    width: 90%;
+    padding: 20px;
+    box-shadow: 0px 0px 20px #00000020;
+    border-radius: 8px;
+    background-color: white;
+}
+.fpc .form-group {
+    width: 100%;
+    margin-top: 20px;
+}
+.fpc .form-group input {
+    width: 100%;
+    border: 1.5px solid rgba(128, 128, 128, 0.418);
+    padding: 5px;
+    font-size: 18px;
+    margin-top: 5px;
+    border-radius: 4px;
+}
+.fpc .form-group select {
+    width: 100%;
+    border: 1.5px solid rgba(128, 128, 128, 0.418);
+    padding: 5px;
+    font-size: 18px;
+    margin-top: 5px;
+    border-radius: 4px;    
+}
+
+.fpc button.next-btn,
+.fpc button.previous-btn,
+.fpc button.submit-btn {
+    color: white;
+    background-color: #0D6EFD;
+    border-radius: 5px;
+    float: right;
+    margin-top: 20px;
+    padding: 10px 30px;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+.fpc button.previous-btn {
+    float: left;
+}
+.fpc button.submit-btn {
+    background-color: rgb(83, 190, 120);
+}
+

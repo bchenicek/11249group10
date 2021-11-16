@@ -67,74 +67,77 @@ const AccountCreation = props => {
     }
     
     return (
-        <div>
-            <h3>Create GreenGator Account</h3>
-            <form onSubmit={onSubmit}>
-                <div className="form-group">
-                    <label>Username:&nbsp;</label>
-                    <label className="text-danger">*</label>
-                    <input type="text"
-                        required
-                        className="form-control"
-                        value={username}
-                        onChange={onChangeUsername}
-                        />
+    <div class = "fpc">
+        <div class="section">
+            <div class="container">
+                <div>
+                    <h3><center>Create GreenGator Account</center></h3>
+                    <form onSubmit={onSubmit}>
+                        <div className="form-group">
+                            <label>Username:&nbsp;</label>
+                            <label className="text-danger">*</label>
+                            <input type="text"
+                                required
+                                className="form-control"
+                                value={username}
+                                onChange={onChangeUsername}
+                                />
+                        </div>
+                        <div className="form-group">
+                            <label>Password:&nbsp;</label>
+                            <label className="text-danger">*</label>
+                            <input type="password"
+                                required
+                                className="form-control"
+                                value={password}
+                                onChange={onChangePassword}
+                                />
+                        </div>
+                        <div className="form-group">
+                            <label>First Name:&nbsp;</label>
+                            <label className="text-danger">*</label>
+                            <input type="text"
+                                required
+                                className="form-control"
+                                value={first_name}
+                                onChange={onChangeFirstName}
+                                />
+                        </div>
+                        <div className="form-group">
+                            <label>Last Name: </label>
+                            <input type="text"
+                                className="form-control"
+                                value={last_name}
+                                onChange={onChangeLastName}
+                                />
+                        </div>
+                        <div className="form-group">
+                            <label>Email:&nbsp;</label>
+                            <label className="text-danger">*</label>
+                            <input type="text"
+                                required
+                                className="form-control"
+                                value={email}
+                                onChange={onChangeEmail}
+                                />
+                        </div>
+                        <div className="form-group">
+                            <label>Birth Date:&nbsp;</label>
+                            <label className="text-danger">*</label>
+                            <div>
+                                <DatePicker
+                                    required
+                                    selected={birth_date}
+                                    onChange={onChangeBirthDate}
+                                />
+                            </div>
+                        </div>
+                        <button type="button" class="submit-btn" onClick={onSubmit}>Create Account</button>
+                    </form>
                 </div>
-                <div className="form-group">
-                    <label>Password:&nbsp;</label>
-                    <label className="text-danger">*</label>
-                    <input type="password"
-                        required
-                        className="form-control"
-                        value={password}
-                        onChange={onChangePassword}
-                        />
-                </div>
-                <div className="form-group">
-                    <label>First Name:&nbsp;</label>
-                    <label className="text-danger">*</label>
-                    <input type="text"
-                        required
-                        className="form-control"
-                        value={first_name}
-                        onChange={onChangeFirstName}
-                        />
-                </div>
-                <div className="form-group">
-                    <label>Last Name: </label>
-                    <input type="text"
-                        className="form-control"
-                        value={last_name}
-                        onChange={onChangeLastName}
-                        />
-                </div>
-                <div className="form-group">
-                    <label>Email:&nbsp;</label>
-                    <label className="text-danger">*</label>
-                    <input type="text"
-                        required
-                        className="form-control"
-                        value={email}
-                        onChange={onChangeEmail}
-                        />
-                </div>
-                <div className="form-group">
-                    <label>Birth Date:&nbsp;</label>
-                    <label className="text-danger">*</label>
-                    <div>
-                        <DatePicker
-                            required
-                            selected={birth_date}
-                            onChange={onChangeBirthDate}
-                        />
-                    </div>
-                </div>
-
-                <div className="form-group">
-                    <input type="submit" value="Create Account" className="btn btn-primary" />
-                </div>
-            </form>
+            </div>
         </div>
+    </div>
         )        
 }
 

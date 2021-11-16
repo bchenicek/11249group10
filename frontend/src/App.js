@@ -8,6 +8,7 @@ import AccountCreation from './components/account-creation.component';
 import HomePage from './components/home-page.component';
 import Dashboard from './components/dashboard.component';
 import FootPrint from './components/footprint-calc.component';
+import FootPrintRes from './components/footprint-results.component'
 import Challenges from './components/challenges.component';
 import GroupSearch from './components/group-search.component';
 import GroupCreation from './components/group-creation.component';
@@ -39,6 +40,9 @@ function App() {
         </AuthRoute>
         <AuthRoute path="/footprint-calculator">
           <FootPrint />
+        </AuthRoute>
+        <AuthRoute path="/footprint-results">
+          <FootPrintRes />
         </AuthRoute>
         <AuthRoute path="/challenges">
           <Challenges />

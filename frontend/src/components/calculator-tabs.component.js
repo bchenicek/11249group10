@@ -2,7 +2,7 @@ import React from "react";
 
 const HouseholdInformation = props => {
     const states = [ "AK", "AL", "AR", "AS", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "GU", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "PR", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VI", "VT", "WA", "WI", "WV", "WY"];
-    
+
     return (
         <div>
             <h3>Household Information</h3>
@@ -17,7 +17,7 @@ const HouseholdInformation = props => {
                         />
                 </div>
                 <div className="form-group">
-                    <label>State:</label>
+                <label>State:</label>
                     <select 
                         required
                         className="form-control"
@@ -52,6 +52,7 @@ const HouseholdInformation = props => {
                 </div>
             </form>
         </div>
+
     )
 }
 
@@ -60,6 +61,7 @@ const TravelInformation = (props) => {
         <div>
             <h3>Travel Information</h3>
             <form>
+                <h5>&nbsp;</h5>
                 <h5>Personal Vehicle(s)</h5>
                 <div className="form-group">
                     <label>Average Travel (miles/year):</label>
@@ -77,6 +79,7 @@ const TravelInformation = (props) => {
                         onChange={props.onChangeVehicleMPG}
                         />
                 </div>
+                <h5>&nbsp;</h5>
                 <h5>Public Transit</h5>
                 <div className="form-group">
                     <label>Average Travel (miles/year):</label>
@@ -86,6 +89,7 @@ const TravelInformation = (props) => {
                         onChange={props.onChangePublicTransitMiles}
                         />
                 </div>
+                <h5>&nbsp;</h5>
                 <h5>Air Travel</h5>
                 <div className="form-group">
                     <label>Average Travel (miles/year):</label>
@@ -114,7 +118,7 @@ const HomeInformation = (props) => {
                         />
                 </div>
                 <div className="form-group">
-                    <label>Electricity Bill (dollars):</label>
+                    <label>Electricity Bill (dollars/month):</label>
                     <input type="number"
                         required
                         className="form-control"
@@ -123,7 +127,7 @@ const HomeInformation = (props) => {
                         />
                 </div>
                 <div className="form-group">
-                    <label>Water Bill (dollars):</label>
+                    <label>Water Bill (dollars/month):</label>
                     <input type="number"
                         required
                         className="form-control"
@@ -131,6 +135,7 @@ const HomeInformation = (props) => {
                         onChange={props.onChangeWaterBill}
                         />
                 </div>
+                <h5>&nbsp;</h5>
                 <h5>Additional Natural Resources</h5>
                 <div className="form-group">
                     <label>Natural Gas (therms/year):</label>
@@ -158,9 +163,10 @@ const FoodInformation = (props) => {
         <div>
             <h3>Food Information</h3>
             <form>
-                <h5>Average Daily Consumption (calories/person)</h5>
+                <h5>&nbsp;</h5>
+                <h5>Average Daily Consumption</h5>
                 <div className="form-group">
-                    <label>Meat, Fish, and Eggs:</label>
+                    <label>Meat, Fish, and Eggs (calories/person):</label>
                     <input type="number"
                         required
                         className="form-control"
@@ -169,7 +175,7 @@ const FoodInformation = (props) => {
                         />
                 </div>
                 <div className="form-group">
-                    <label>Grains and Baked Goods:</label>
+                    <label>Grains and Baked Goods (calories/person):</label>
                     <input type="number"
                         required
                         className="form-control"
@@ -178,7 +184,7 @@ const FoodInformation = (props) => {
                         />
                 </div>
                 <div className="form-group">
-                    <label>Dairy:</label>
+                    <label>Dairy (calories/person):</label>
                     <input type="number"
                         required
                         className="form-control"
@@ -187,7 +193,7 @@ const FoodInformation = (props) => {
                         />
                 </div>
                 <div className="form-group">
-                    <label>Fruits and Vegetable:</label>
+                    <label>Fruits and Vegetable (calories/person):</label>
                     <input type="number"
                         required
                         className="form-control"
@@ -196,7 +202,7 @@ const FoodInformation = (props) => {
                         />
                 </div>
                 <div className="form-group">
-                    <label>Additional Snacks:</label>
+                    <label>Additional Snacks (calories/person):</label>
                     <input type="number"
                         required
                         className="form-control"
@@ -214,9 +220,8 @@ const ShoppingInformation = (props) => {
         <div>
             <h3>Shopping Information</h3>
             <form>
-                <h5>Average Money Spent (dollars)</h5>
                 <div className="form-group">
-                    <label>Goods:</label>
+                    <label>Goods (dollars/month):</label>
                     <input type="number"
                         required
                         className="form-control"
@@ -225,7 +230,7 @@ const ShoppingInformation = (props) => {
                         />
                 </div>
                 <div className="form-group">
-                    <label>Services:</label>
+                    <label>Services (dollars/month):</label>
                     <input type="number"
                         required
                         className="form-control"
