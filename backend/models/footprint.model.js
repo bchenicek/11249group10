@@ -106,8 +106,8 @@ const footprintSchema = new Schema({
     },
     oFuel_CO2: {
         type: Number
-    }
-/*    animalProtein_CO2: {
+    },
+    animalProtein_CO2: {
         type: Number
     },
     grains_CO2: {
@@ -127,7 +127,7 @@ const footprintSchema = new Schema({
     },
     services_CO2: {
         type: Number 
-    }                   */
+    }
 }, {
     timestamps: true,
 });

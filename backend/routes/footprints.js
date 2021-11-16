@@ -37,13 +37,13 @@ router.route('/create').post((req, res) => {
     const water_CO2 = req.body.water_CO2;
     const natGas_CO2 = req.body.natGas_CO2;
     const oFuel_CO2 = req.body.oFuel_CO2;
-/*    const animalProtein_CO2 = req.body.animalProtein_CO2;
+    const animalProtein_CO2 = req.body.animalProtein_CO2;
     const grains_CO2 = req.body.grains_CO2;
     const dairy_CO2 = req.body.dairy_CO2;
     const FruitVeg_CO2 = req.body.FruitVeg_CO2;
     const snacks_CO2 = req.body.snacks_CO2;
     const goods_CO2 = req.body.goods_CO2;
-    const services_CO2 = req.body.services_CO2;  */
+    const services_CO2 = req.body.services_CO2;
 
     const newFootprint = new Footprint({
         user_id,
@@ -73,14 +73,14 @@ router.route('/create').post((req, res) => {
         electric_CO2,
         water_CO2,
         natGas_CO2,
-        oFuel_CO2
-/*      animalProtein_CO2,
+        oFuel_CO2,
+        animalProtein_CO2,
         grains_CO2,
         dairy_CO2,
         FruitVeg_CO2, 
         snacks_CO2,
         goods_CO2,
-        services_CO2        */
+        services_CO2
     });
 
     newFootprint.save()
