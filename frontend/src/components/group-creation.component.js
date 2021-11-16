@@ -118,7 +118,7 @@ const GroupCreation = ({ props, user }) => {
                 </div>
                 <div className="form-group">
                     <label>Description: </label>
-                    <input type="text"
+                    <textarea type="text"
                         className="form-control"
                         value={description}
                         onChange={onChangeDescription}

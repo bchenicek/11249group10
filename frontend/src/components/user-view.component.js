@@ -12,9 +12,14 @@ const UserView = ({ props, user }) => {
     const [first_name, setFirstName] = useState("");
     const [last_name, setLastName] = useState("");
 
+    const [friends, setFriends] = useState([]);
+
     const [incomingRequest, setIncomingRequest] = useState(false);
     const [hasRequestedUser, setHasRequestedUser] = useState(false);
     const [friendsWithUser, setFriendsWithUser] = useState(false);
+    const [invite_group, setInviteGroup] = useState("");
+
+    const [group_names, setGroupNames] = useState(new Map());
     
     useEffect(() => {
         if (user._id === id) {
@@ -22,9 +27,12 @@ const UserView = ({ props, user }) => {
         }
         
         getUserData();
+        console.log(group_names);
     }, [])
 
     const getUserData = () => {
+        setFriends(user.friends);
+        
         axios.get('http://localhost:5000/users/'+id)
             .then(currUser => {
                 const friendRequest = {
@@ -45,7 +53,18 @@ const UserView = ({ props, user }) => {
                 setFirstName(currUser.data.first_name);
                 setLastName(currUser.data.last_name);
 
-                setFriendsWithUser(user.friends.includes(id));
+                const is_friends = friends.includes(id);
+console.log(friends);
+                setFriendsWithUser(is_friends);
+                setInviteGroup(user.groups[0]);
+console.log(user);
+                user.groups.map(currGroup => {                    
+                    console.log(currGroup)
+                    axios.get('http://localhost:5000/groups/'+currGroup)
+                        .then(res => {
+                            setGroupNames(group_names.set(currGroup, res.data.group_name))
+                        })
+                }) 
 
                 axios.post('http://localhost:5000/requests/match-friend', friendRequest)
                     .then(requests => {
@@ -91,6 +110,27 @@ const UserView = ({ props, user }) => {
             })
     }
 
+    const sendGroupInvite = e => {
+        e.preventDefault();
+        
+        setHasRequestedUser(true);
+
+        const groupInvite = {
+            requestor_id: user._id,
+            requestor_name: user.username,
+            recipient: id,
+            recipient_name: username,
+            group_id: invite_group,
+            group_name: group_names.get(invite_group)
+        }
+
+        axios.post('http://localhost:5000/requests/group-invite', groupInvite)
+            .then(res => {
+                console.log(res);
+                alert("You have invited " + username + " to " + group_names.get(invite_group) + "!");
+            })
+    }
+
     const acceptFriendRequest = e => {
         e.preventDefault();
         
@@ -128,6 +168,10 @@ const UserView = ({ props, user }) => {
         history.goBack();
     }
 
+    const onChangeInviteGroup = e => {
+        setInviteGroup(e.target.value);
+    }
+
     return (
         <div>
             <input type="button" onClick={goBackPage} value="Back" className="btn btn-primary" />
@@ -139,7 +183,22 @@ const UserView = ({ props, user }) => {
                     incomingRequest ?
                         <input type="button" onClick={acceptFriendRequest} value="Accept Request" className="btn btn-primary" /> :
                         <input type="button" onClick={sendFriendRequest} value="Send Friend Request" className="btn btn-primary" /> :
-                <p className="text-secondary">You are friends with this user.</p>
+                <div>
+                    <p className="text-secondary">You are friends with this user.</p>
+                    <select 
+                        required
+                        className="form-control"
+                        onChange={onChangeInviteGroup}>
+                        { 
+                            user.groups.map(currGroup => {       
+                                return (
+                                    <option value={currGroup}>{group_names.get(currGroup)}</option>
+                                )
+                            }) 
+                        }
+                    </select>
+                    <input type="button" onClick={sendGroupInvite} value="Invite to Group" className="btn btn-primary" />
+                </div>
             }
         </div>
     )

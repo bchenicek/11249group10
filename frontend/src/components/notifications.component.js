@@ -10,7 +10,7 @@ const IncomingNotificationList = props => {
         return (     
             props.i_notifications.map(i_notification => {       
                 return (
-                    <IncomingNotification i_notification={i_notification} acceptNotification={props.acceptNotification} deleteNotification={props.deleteNotification} />
+                    <IncomingNotification i_notification={i_notification} user={props.user} acceptNotification={props.acceptNotification} deleteNotification={props.deleteNotification} />
                 )
             })
         )
@@ -30,6 +30,10 @@ const IncomingNotification = props => {
                 <Link to={"/group/" + props.i_notification.group_id}>{props.i_notification.group_name}</Link> :
                 null
             } &nbsp;&nbsp;
+            { props.i_notification.type === "Group Invite" ?
+                <input type="button" onClick={() => { props.acceptNotification(props.i_notification._id, props.user._id, props.i_notification.group_id, props.i_notification.type)}} value="Accept" className="btn btn-primary" /> :
+                null
+            }
             { props.i_notification.type === "Group Join Request" ?
                 <input type="button" onClick={() => { props.acceptNotification(props.i_notification._id, props.i_notification.requestor_id, props.i_notification.group_id, props.i_notification.type)}} value="Accept" className="btn btn-primary" /> :
                 null
@@ -113,6 +117,15 @@ const NotificationPage = ({ props, user }) => {
             axios.post('http://localhost:5000/requests/group/accept', joinGroup)
                 .then(res => console.log(res.data))
                 .catch(err => console.log(err));
+        } else if (type === "Group Invite") {
+            const joinGroup = {
+                new_member: id_2,
+                group_id: id_3
+            };
+    
+            axios.post('http://localhost:5000/requests/group/accept', joinGroup)
+                .then(res => console.log(res.data))
+                .catch(err => console.log(err));
         } else if (type === "Friend Request") {
             const acceptFriend = {
                 recipient: id_2,
@@ -144,7 +157,7 @@ const NotificationPage = ({ props, user }) => {
         <div>
             <h2>Notifications</h2>
             <h4>Incoming</h4>
-            <IncomingNotificationList i_notifications={incomingNotifcations} acceptNotification={acceptNotification} deleteNotification={deleteNotification}/>
+            <IncomingNotificationList i_notifications={incomingNotifcations} user={user} acceptNotification={acceptNotification} deleteNotification={deleteNotification}/>
             <h4>Outgoing</h4>
             <OutgoingNotificationList o_notifications={outgoingNotifcations} deleteNotification={deleteNotification}/>
         </div>

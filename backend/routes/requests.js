@@ -118,6 +118,43 @@ router.route('/group').get((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.route('/group-invite').post((req, res) => {
+    const requestor_id = req.body.requestor_id;
+    const requestor_name = req.body.requestor_name;
+    const recipient = req.body.recipient;
+    const recipient_name = null;
+    const type = "Group Invite";
+    const group_id = req.body.group_id;
+    const group_name = req.body.group_name;
+    const message = null;
+    
+    const newRequest = new Request({ 
+        requestor_id,
+        requestor_name,
+        recipient,
+        recipient_name,
+        type,
+        group_id,
+        group_name,
+        message
+    });
+
+    newRequest.save()
+        .then(() => res.json('Group invite created!'))
+        .catch(err => {
+            res.status(400).json({
+                "status": "catch_error",
+                "message": "An error was thrown while saving the request to the database."
+            })
+        })
+});
+
+router.route('/group').get((req, res) => {
+    Request.find( { type: "group-request" })
+        .then(requests => res.json(requests))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
 router.route('/group').post((req, res) => {
     const requestor_id = req.body.requestor_id;
     const requestor_name = req.body.requestor_name;
