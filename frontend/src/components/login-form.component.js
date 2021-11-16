@@ -32,6 +32,8 @@ const LoginForm = props => {
         }
 
         loginUser(user, history);
+
+        history.push('/login')
     }
     
     return (

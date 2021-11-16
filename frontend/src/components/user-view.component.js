@@ -12,8 +12,6 @@ const UserView = ({ props, user }) => {
     const [first_name, setFirstName] = useState("");
     const [last_name, setLastName] = useState("");
 
-    const [friends, setFriends] = useState([]);
-
     const [incomingRequest, setIncomingRequest] = useState(false);
     const [hasRequestedUser, setHasRequestedUser] = useState(false);
     const [friendsWithUser, setFriendsWithUser] = useState(false);
@@ -30,9 +28,7 @@ const UserView = ({ props, user }) => {
         console.log(group_names);
     }, [])
 
-    const getUserData = () => {
-        setFriends(user.friends);
-        
+    const getUserData = () => {      
         axios.get('http://localhost:5000/users/'+id)
             .then(currUser => {
                 const friendRequest = {
@@ -52,19 +48,22 @@ const UserView = ({ props, user }) => {
                 setUsername(currUser.data.username);
                 setFirstName(currUser.data.first_name);
                 setLastName(currUser.data.last_name);
-
-                const is_friends = friends.includes(id);
-console.log(friends);
-                setFriendsWithUser(is_friends);
                 setInviteGroup(user.groups[0]);
-console.log(user);
-                user.groups.map(currGroup => {                    
-                    console.log(currGroup)
-                    axios.get('http://localhost:5000/groups/'+currGroup)
+
+                axios.get('http://localhost:5000/users/'+user._id)
                         .then(res => {
-                            setGroupNames(group_names.set(currGroup, res.data.group_name))
+                            const is_friends = res.data.friends.includes(id);
+                            setFriendsWithUser(is_friends);
+                            console.log(res.data.groups);
+                            
+                            res.data.groups.map(async currGroup => {                    
+                                console.log(currGroup)
+                                await axios.get('http://localhost:5000/groups/'+currGroup)
+                                    .then(res_2 => {
+                                        setGroupNames(group_names.set(currGroup, res_2.data.group_name))
+                                    })
+                            }) 
                         })
-                }) 
 
                 axios.post('http://localhost:5000/requests/match-friend', friendRequest)
                     .then(requests => {
