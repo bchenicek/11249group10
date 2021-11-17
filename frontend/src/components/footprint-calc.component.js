@@ -3,10 +3,13 @@ import './Stylesheet.css'
 
 import { connect } from 'react-redux';
 import { createFootprint } from './../auth/actions/footprintActions';
+import { useHistory } from 'react-router-dom';
 
 import { HouseholdInformation, TravelInformation, HomeInformation, FoodInformation, ShoppingInformation } from './calculator-tabs.component'
 
 const FootPrintCalc = ({ props, user }) => {
+    const history = useHistory();
+
     const [activeTab, setActiveTab] = useState(0);
     
     const userID = user._id;
@@ -150,7 +153,7 @@ const FootPrintCalc = ({ props, user }) => {
     <ShoppingInformation 
         shoppingGoods={shoppingGoods} onChangeShoppingGoods={onChangeShoppingGoods}
         shoppingServices={shoppingServices} onChangeShoppingServices={onChangeShoppingServices}
-    /> 
+    />
     ];
 
     const previousPage = e => {
@@ -190,31 +193,52 @@ const FootPrintCalc = ({ props, user }) => {
             fruit_veg_cal: fruitVeg,
             snacks_cal: snacks,
             shopping_goods: shoppingGoods,
-            shopping_services: shoppingServices 
+            shopping_services: shoppingServices,
+            vehicle_CO2: (vehicleMiles/vehicleMPG)*8.89,
+            pTransit_CO2: (publicTransitMiles/38.3)*8.89,
+            airTravel_CO2: (publicTransitMiles/51)*9.57,
+            electric_CO2: (electricBill/0.13)*0.42,
+            water_CO2: (waterBill/0.0015)*0.085,
+            natGas_CO2: naturalGas*5.44,
+            oFuel_CO2: otherFuels*5.72,
+            animalProtein_CO2: (animalProtein/2045)*15.29,
+            grains_CO2: (grains/1230)*1.8,
+            dairy_CO2: (dairy/2267)*7.7,
+            FruitVeg_CO2: (fruitVeg/1881)*2.1, 
+            snacks_CO2: (snacks/5291)*19,
+            goods_CO2: shoppingGoods*0.39,
+            services_CO2: (shoppingServices/42)*0.59*9.1
         }
 
         console.log(newFootprint);
         createFootprint(newFootprint);
+        history.push('/footprint-results');
     }
 
-
     return (
-        <div>
-            <div className="currentTab">
-                { tabs[activeTab] }
+        <div class = "fpc">
+            <div class="section">
+                <div class="container">
+                    <div>
+                        <div className="currentTab">
+                            { tabs[activeTab] }
+                        </div>
+                        { activeTab > 0  ? 
+                            <button type="button" class="previous-btn" onClick={previousPage}>Previous</button>
+                        : null }
+                        { activeTab < 4 ?
+                            <button type="button" class="next-btn" onClick={nextPage}>Next</button>
+                        : null }
+                        { activeTab === 4 ?
+                            <button type="button" class="submit-btn" onClick={onSubmit}>Submit</button>
+                        : null }
+                    </div>
+                </div>
             </div>
-            { activeTab > 0 ? 
-                <input type="submit" onClick={previousPage} value="Previous Page" className="btn btn-primary" />
-            : null }
-            { activeTab < 4 ?
-                <input type="submit" onClick={nextPage} value="Next Page" className="btn btn-primary" />
-            : null }
-            { activeTab == 4 ?
-                <input type="submit" onClick={onSubmit} value="Submit" className="btn btn-primary" />
-            : null }
         </div>
     )
 }
+
 const fetchUserData = ({session}) => ({
     user: session.user
 })

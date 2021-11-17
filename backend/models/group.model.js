@@ -33,6 +33,12 @@ const groupSchema = new Schema({
         required: true,
         trim: true
     },
+    zip_code: {
+        type: String,
+        required: true,
+        trim: true,
+        minlength: 5
+    },
     owner: {
         type: String,
         required: true
@@ -40,6 +46,10 @@ const groupSchema = new Schema({
     members: {
         type: Array,
         required: true
+    },
+    messages: {
+        type: Array,
+        required: false
     }
 }, {
     timestamps: true,

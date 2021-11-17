@@ -19,7 +19,7 @@ const footprintSchema = new Schema({
         type: String,
         required: true,
         trim: true,
-        minlength: 3
+        minlength: 2
     },
     household_size: {
         type: Number,
@@ -85,6 +85,48 @@ const footprintSchema = new Schema({
     shopping_services: {
         type: Number,
         required: true
+    },
+    vehicle_CO2: {
+        type: Number
+    },
+    pTransit_CO2: {
+        type: Number
+    },
+    airTravel_CO2: {
+        type: Number
+    },
+    electric_CO2: {
+        type: Number
+    },
+    water_CO2: {
+        type: Number
+    },
+    natGas_CO2: {
+        type: Number
+    },
+    oFuel_CO2: {
+        type: Number
+    },
+    animalProtein_CO2: {
+        type: Number
+    },
+    grains_CO2: {
+        type: Number
+    },
+    dairy_CO2: {
+        type: Number
+    },
+    FruitVeg_CO2: {
+        type: Number
+    },
+    snacks_CO2: {
+        type: Number
+    },
+    goods_CO2: {
+        type: Number
+    },
+    services_CO2: {
+        type: Number 
     }
 }, {
     timestamps: true,

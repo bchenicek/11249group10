@@ -35,34 +35,37 @@ const LoginForm = props => {
     }
     
     return (
-        <div>
-            <h3>Login to your GreenGator Account</h3>
-            <form onSubmit={onSubmit}>
-                <div className="form-group">
-                    <label>Username: </label>
-                    <input type="text"
-                        required
-                        className="form-control"
-                        value={username}
-                        onChange={onChangeUsername}
-                        />
+        <div class = "fpc">
+            <div class="section">
+                <div class="container">
+                    <div>
+                        <h3><font size="+2"><center>Login to GreenGator Account</center></font></h3>
+                        <form onSubmit={onSubmit}>
+                            <div className="form-group">
+                                <label>Username: </label>
+                                <input type="text"
+                                    required
+                                    className="form-control"
+                                    value={username}
+                                    onChange={onChangeUsername}
+                                    />
+                            </div>
+                            <div className="form-group">
+                                <label>Password: </label>
+                                <input type="password"
+                                    required
+                                    className="form-control"
+                                    value={password}
+                                    onChange={onChangePassword}
+                                    />
+                            </div>
+                            <button type="button" class="submit-btn" onClick={onSubmit}>Login</button>
+                        </form>
+                    </div>
                 </div>
-                <div className="form-group">
-                    <label>Password: </label>
-                    <input type="password"
-                        required
-                        className="form-control"
-                        value={password}
-                        onChange={onChangePassword}
-                        />
-                </div>
-
-                <div className="form-group">
-                    <input type="submit" value="Login" className="btn btn-primary" />
-                </div>
-            </form>
+            </div>
         </div>
-        )
+    )
 }
 
 export default connect(null, {loginUser})(LoginForm);
