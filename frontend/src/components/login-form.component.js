@@ -2,12 +2,16 @@ import React, { useEffect, useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css'
 
 import { connect } from 'react-redux';
-import { loginUser } from './../auth/actions/userActions';
 import { useHistory } from 'react-router-dom';
+
+import axios from 'axios';
+import { sessionService } from 'redux-react-session';
 
 const LoginForm = props => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+
+    const [userDoesNotExist, setUserDoesNotExist] = useState(false);
 
     const history = useHistory();
 
@@ -17,10 +21,18 @@ const LoginForm = props => {
 
     const onChangeUsername = e => {
         setUsername(e.target.value)
+
+        if (userDoesNotExist) {
+            setUserDoesNotExist(false);
+        }
     }
 
     const onChangePassword = e => {
         setPassword(e.target.value)
+
+        if (userDoesNotExist) {
+            setUserDoesNotExist(false);
+        }
     }
 
     const onSubmit = e => {
@@ -31,7 +43,38 @@ const LoginForm = props => {
             password: password
         }
 
-        loginUser(user, history);
+        axios.post('http://localhost:5000/users/login', user, {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(res => {
+            const {data} = res;
+
+            if (data.status === "login_successful") {
+                const userData = data.account_data;
+                const token = userData._id;
+
+                sessionService.saveSession(token)
+                    .then(() => {
+                        sessionService.saveUser(userData)
+                            .then(() => {
+                                history.push('/dashboard');
+                            })
+                            .catch(err => {
+                                console.log(err);
+                            })
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+            } else {
+                console.log("Failed Login.");
+
+                setUserDoesNotExist(true);
+            }
+        })
+        .catch(err => console.log(err));
     }
     
     return (
@@ -60,6 +103,10 @@ const LoginForm = props => {
                                     />
                             </div>
                             <button type="button" class="submit-btn" onClick={onSubmit}>Login</button>
+                            { userDoesNotExist ?
+                                <p className="text-danger">There is no user with the given credentials.</p> :
+                                null
+                            }
                         </form>
                     </div>
                 </div>
@@ -68,4 +115,4 @@ const LoginForm = props => {
     )
 }
 
-export default connect(null, {loginUser})(LoginForm);
+export default connect(null)(LoginForm);
