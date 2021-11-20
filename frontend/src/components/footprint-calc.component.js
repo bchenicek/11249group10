@@ -15,7 +15,7 @@ const FootPrintCalc = ({ props, user }) => {
     const userID = user._id;
 
     const [city, setCity] = useState("");
-    const [_state, set_State] = useState("");
+    const [_state, set_State] = useState("AK");
     const [householdSize, setHouseholdSize] = useState(0);
     const [householdIncome, setHouseholdIncome] = useState(0);
 
@@ -211,8 +211,7 @@ const FootPrintCalc = ({ props, user }) => {
         }
 
         console.log(newFootprint);
-        createFootprint(newFootprint);
-        history.push('/footprint-results');
+        createFootprint(newFootprint, history);
     }
 
     return (

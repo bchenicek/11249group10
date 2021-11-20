@@ -37,7 +37,7 @@ const FootPrintRes = ({ user }) => {
     if (footprints.length == 0) {
         return (
             <div>
-                <center><h3>There are no footprints to display.</h3></center>
+                <center><h3>Something went wrong. Please try again.</h3></center>
             </div>
         )
     }
