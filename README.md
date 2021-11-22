@@ -10,3 +10,6 @@ cd backend; nodemon server
 
 To start app:
 cd frontend; npm start
+
+In case of build fail, run the following command:
+npm install react-scripts
